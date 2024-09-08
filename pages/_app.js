@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import { useState, useEffect } from 'react';
+import AnimatedBackground from '../components/AnimatedBackground';
 
 function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -26,18 +27,25 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
-      <div className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300 min-h-screen">
-        <nav className="bg-white dark:bg-gray-800 shadow-md">
+      <AnimatedBackground />
+      <div className="relative z-10 bg-opacity-90 bg-white dark:bg-opacity-90 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 min-h-screen">
+        <nav className="bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 shadow-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              <div className="flex-shrink-0">
-                <h1 className="text-xl font-bold text-gray-800 dark:text-white">AWS AI Exam</h1>
+              <div className="flex-1"></div>
+              <div className="flex-1 flex justify-center">
+                <h1 className="text-xl font-bold text-orange-dark dark:text-orange-light text-center">
+                  The unofficial AWS AI Practitioner Prep Exam
+                </h1>
               </div>
-              <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <div className="flex-1 flex justify-end items-center">
+                <span className="text-sm mr-2 text-orange-dark dark:text-orange-light">Dark Mode</span>
+                <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              </div>
             </div>
           </div>
         </nav>
-        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 relative z-10">
           <Component {...pageProps} />
         </main>
       </div>

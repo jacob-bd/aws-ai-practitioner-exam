@@ -4,16 +4,22 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'navy-blue': '#1e3a8a',
-        'light-blue': '#f0f7ff',
-        'orange-500': '#f97316',
+        orange: {
+          dark: '#8B4000',
+          medium: '#A0522D',
+          light: '#D2691E',
+          bright: '#FF8C00',
+        },
       },
     },
   },
+  variants: {
+    extend: {},
+  },
   plugins: [],
-  darkMode: 'class',
 }
 
