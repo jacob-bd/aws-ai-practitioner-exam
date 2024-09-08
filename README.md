@@ -52,3 +52,54 @@
 - react-canvas-confetti (for fireworks animation)
 
 Make sure to run `npm install` before starting the application to install all necessary dependencies.
+
+## Admin Functionality
+
+The application now includes an admin screen for managing the question pool. To access the admin functionality, navigate to `/admin` in your browser.
+
+### Adding Questions
+
+1. On the admin screen, locate the "Add New Question" section.
+2. Fill in the following fields:
+   - Question Text: Enter the question text in the larger text area provided.
+   - Type: Select either "Single Choice" or "Multiple Choice" from the dropdown.
+   - Domain: Choose the appropriate domain for the question from the dropdown.
+   - Options: Add answer options by filling in the text, explanation, and marking correct answers.
+3. Click "Add Option" to include more answer choices if needed.
+4. Click "Add Question" to submit the new question.
+5. A confirmation message will appear upon successful addition.
+
+### Editing Questions
+
+1. In the question list, click on the question text you wish to edit.
+2. The question details will populate the edit form at the top of the page.
+3. Make your desired changes to the question text, type, domain, or options.
+4. Click "Update Question" to save your changes.
+5. A confirmation message will appear upon successful update.
+
+### Removing Questions
+
+1. In the question list, locate the question you want to remove.
+2. Click the "Delete" button next to the question.
+3. Confirm the deletion when prompted.
+4. A confirmation message will appear upon successful deletion.
+
+### Question List Overview
+
+The admin screen provides a table showing:
+- Domains
+- Total number of questions per domain
+- Number of single-choice questions per domain
+- Number of multiple-choice questions per domain
+
+This overview helps in maintaining a balanced question pool across different domains and question types.
+
+## Recent UI Optimizations
+
+- Enlarged the question text input field for better visibility and editing of longer questions.
+- Added confirmation messages for successful add, edit, and delete actions.
+- Implemented a cancel button for the edit form to discard changes.
+- Updated the question list to show single and multiple-choice question counts per domain.
+- Improved overall admin screen layout and usability.
+
+Make sure to run `npm install` before starting the application to install all necessary dependencies.
