@@ -3,8 +3,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import DomainSection from './DomainSection';
 import QuestionReview from './QuestionReview';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
-
 const Results = ({ score, totalQuestions, domainPerformance, elapsedTime, questions }) => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
 
@@ -28,11 +26,16 @@ const Results = ({ score, totalQuestions, domainPerformance, elapsedTime, questi
   const seconds = elapsedTime % 60;
   const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
+  // Determine the color based on the percentage
+  const scoreColor = percentage >= 70 ? 'text-green-600' : 'text-red-600';
+
   return (
     <div className="results-container p-6 bg-gray-100">
       <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4 text-navy-blue">You scored {percentage}%</h2>
+          <h2 className={`text-4xl font-bold mb-4 ${scoreColor}`}>
+            You scored {percentage}%
+          </h2>
           <p className="text-xl text-gray-600">
             You answered {score} of {totalQuestions} questions correctly in {timeString}
           </p>
@@ -57,8 +60,9 @@ const Results = ({ score, totalQuestions, domainPerformance, elapsedTime, questi
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
+          <h3 className="text-2xl font-semibold mb-4 text-black dark:text-black">Performance by Domain</h3>
           {Object.entries(domainPerformance).map(([domain, performance]) => (
             <DomainSection
               key={domain}
@@ -69,8 +73,9 @@ const Results = ({ score, totalQuestions, domainPerformance, elapsedTime, questi
             />
           ))}
         </div>
-        <div className="sticky top-6">
-          {selectedQuestion && <QuestionReview question={selectedQuestion} />}
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-black dark:text-black">Question Review</h3>
+          <QuestionReview question={selectedQuestion} />
         </div>
       </div>
     </div>

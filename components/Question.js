@@ -1,47 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion, immediateFeedback }) => {
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const correctAnswersCount = question.options.filter(option => option.correct).length;
+  const isMultipleChoice = correctAnswersCount > 1;
 
   useEffect(() => {
-    setSelectedOption(null);
+    setSelectedOptions([]);
     setIsCorrect(null);
+    setShowWarning(false);
+    setHasSubmitted(false);
   }, [question]);
 
   const handleOptionChange = (optionIndex) => {
-    if (!answered) {
-      setSelectedOption(optionIndex);
+    if (hasSubmitted) return;
+
+    if (isMultipleChoice) {
+      setSelectedOptions(prev => {
+        if (prev.includes(optionIndex)) {
+          return prev.filter(index => index !== optionIndex);
+        } else {
+          return [...prev, optionIndex];
+        }
+      });
+    } else {
+      setSelectedOptions([optionIndex]);
     }
+    setShowWarning(false);
   };
 
   const handleSubmit = () => {
-    if (selectedOption === null) return; // Prevent submission if no option is selected
+    if (selectedOptions.length === 0 || (isMultipleChoice && selectedOptions.length !== correctAnswersCount)) {
+      setShowWarning(true);
+      return;
+    }
 
-    const correct = question.options[selectedOption].correct;
-    console.log('Selected Option:', selectedOption);
-    console.log('Is Correct:', correct);
-
+    const correct = selectedOptions.every(index => question.options[index].correct) &&
+                    selectedOptions.length === correctAnswersCount;
     setIsCorrect(correct);
-    onAnswer(selectedOption, correct);
+    setHasSubmitted(true);
+    onAnswer(selectedOptions, correct);
   };
 
   return (
     <div className="question bg-gray-700 rounded-lg p-4 space-y-4">
       <h2 className="text-xl font-semibold text-white">{question.text}</h2>
       <p className="text-sm text-gray-400 italic">Domain: {question.domain}</p>
+      <p className="text-sm text-yellow-400">
+        {isMultipleChoice 
+          ? `Select ${correctAnswersCount} correct answers` 
+          : "Select the correct answer"}
+      </p>
       <div className="space-y-2">
         {question.options.map((option, index) => (
           <div key={index} className="flex items-center space-x-2">
             <input
-              type="radio"
+              type={isMultipleChoice ? "checkbox" : "radio"}
               id={`option-${index}`}
               name={`question-${question.text}`}
-              checked={selectedOption === index}
+              checked={selectedOptions.includes(index)}
               onChange={() => handleOptionChange(index)}
-              disabled={answered}
-              className="form-radio text-blue-600 focus:ring-blue-500"
+              disabled={hasSubmitted}
+              className={isMultipleChoice ? "form-checkbox" : "form-radio"}
             />
             <label htmlFor={`option-${index}`} className="text-gray-300">
               {option.text}
@@ -49,46 +74,38 @@ const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion }
           </div>
         ))}
       </div>
-      {!answered && (
-        <button
-          onClick={handleSubmit}
-          className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
-        >
-          Submit Answer
-        </button>
+      {showWarning && (
+        <p className="text-red-500 font-semibold">
+          {isMultipleChoice 
+            ? `Please select exactly ${correctAnswersCount} answers.`
+            : "Please select an answer before submitting."}
+        </p>
       )}
-      {showFeedback && (
-        <>
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20
-            }}
-            className={`mt-4 p-4 rounded-md ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+      <div className="flex justify-between items-center mt-4">
+        {!hasSubmitted && (
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
-            <p className="font-semibold flex items-center">
-              {isCorrect ? (
-                <>
-                  <span className="text-2xl mr-2">🎉</span> Correct!
-                </>
-              ) : (
-                <>
-                  <span className="text-2xl mr-2">😕</span> Incorrect
-                </>
-              )}
-            </p>
-            <p>{question.options[selectedOption].explanation}</p>
-          </motion.div>
+            Submit Answer
+          </button>
+        )}
+        {hasSubmitted && (
           <button
             onClick={onNextQuestion}
-            className="mt-4 px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-300"
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
           >
             Next Question
           </button>
-        </>
+        )}
+      </div>
+      {immediateFeedback && hasSubmitted && (
+        <div className={`mt-4 p-3 rounded-md ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+          <p className="font-semibold">{isCorrect ? 'Correct!' : 'Incorrect.'}</p>
+          {selectedOptions.map(index => (
+            <p key={index}>{question.options[index].explanation}</p>
+          ))}
+        </div>
       )}
     </div>
   );

@@ -18,34 +18,56 @@ export default function Home() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [timerInterval, setTimerInterval] = useState(null);
   const [examEnded, setExamEnded] = useState(false);
+  const [timerType, setTimerType] = useState('elapsed');
+  const [timeLimit, setTimeLimit] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(null);
 
   React.useEffect(() => {
     let timer;
     if (examState === 'exam' && !examEnded) {
       timer = setInterval(() => {
-        setElapsedTime(prevTime => prevTime + 1);
+        if (timerType === 'limit') {
+          setRemainingTime(prevTime => {
+            if (prevTime <= 0) {
+              clearInterval(timer);
+              endExam();
+              return 0;
+            }
+            return prevTime - 1;
+          });
+        } else {
+          setElapsedTime(prevTime => prevTime + 1);
+        }
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [examState, examEnded]);
+  }, [examState, examEnded, timerType]);
 
-  const startExam = (questionCount, feedback) => {
+  const startExam = (questionCount, feedback, timerType, timeLimit) => {
     setQuestions(getRandomQuestions(questionCount));
     setImmediateFeedback(feedback);
     setExamState('exam');
     setStartTime(Date.now());
+    setTimerType(timerType);
+    setTimeLimit(timeLimit);
+    setRemainingTime(timeLimit);
+    setElapsedTime(0);
   };
 
-  const handleAnswer = (selectedOption, isCorrect) => {
+  const handleAnswer = (selectedOptions, isCorrect) => {
     const currentQuestion = questions[currentQuestionIndex];
 
     setUserAnswers(prev => ({
       ...prev,
       [currentQuestion.text]: {
-        selectedOption,
+        selectedOptions,
         isCorrect
       }
     }));
+
+    if (isCorrect) {
+      setScore(prevScore => prevScore + 1);
+    }
 
     if (immediateFeedback) {
       setShowFeedback(true);
@@ -104,6 +126,12 @@ export default function Home() {
     userAnswer: userAnswers[question.text]
   }));
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="container mx-auto px-4 relative">
       {examState === 'select' && <ExamSelector onStart={startExam} />}
@@ -118,12 +146,15 @@ export default function Home() {
                   showFeedback={showFeedback}
                   answered={showFeedback}
                   onNextQuestion={moveToNextQuestion}
+                  immediateFeedback={immediateFeedback}
                 />
               </div>
               <div className="w-1/5">
                 <div className="bg-gray-700 text-white px-1 py-2 rounded-md border border-gray-600 text-center">
                   <div className="text-sm font-semibold">Time:</div>
-                  <div className="text-lg">{elapsedTime} seconds</div>
+                  <div className="text-lg">
+                    {timerType === 'limit' ? formatTime(remainingTime) : formatTime(elapsedTime)}
+                  </div>
                 </div>
               </div>
             </div>

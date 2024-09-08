@@ -6,6 +6,7 @@ export default function AdminPage() {
   const [questions, setQuestions] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
+  const [message, setMessage] = useState(null);
   const router = useRouter();
   const editSectionRef = useRef(null);
 
@@ -70,22 +71,12 @@ export default function AdminPage() {
       const updatedQuestions = [...questions, addedQuestion];
       setQuestions(updatedQuestions);
       await updateQuestionPool(updatedQuestions);
-
-      // Update questionPool.js file
-      try {
-        const updateResponse = await fetch('/api/updateQuestionPool', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedQuestions),
-        });
-        if (!updateResponse.ok) {
-          console.error('Failed to update question pool:', await updateResponse.text());
-        }
-      } catch (error) {
-        console.error('Error updating question pool:', error);
-      }
+      setMessage('Question added successfully!');
+      setTimeout(() => setMessage(null), 3000); // Clear message after 3 seconds
     } else {
       console.error('Failed to add question:', await response.text());
+      setMessage('Failed to add question. Please try again.');
+      setTimeout(() => setMessage(null), 3000);
     }
   };
 
@@ -108,8 +99,12 @@ export default function AdminPage() {
       setQuestions(updatedQuestions);
       await updateQuestionPool(updatedQuestions);
       setEditingQuestion(null);
+      setMessage('Question updated successfully!');
+      setTimeout(() => setMessage(null), 3000);
     } catch (error) {
       console.error('Failed to edit question:', error);
+      setMessage('Failed to update question. Please try again.');
+      setTimeout(() => setMessage(null), 3000);
     }
   };
 
@@ -128,9 +123,12 @@ export default function AdminPage() {
 
       // Remove the deleted question from the state
       setQuestions(questions.filter(q => q.id !== questionId));
+      setMessage('Question deleted successfully!');
+      setTimeout(() => setMessage(null), 3000);
     } catch (error) {
       console.error('Failed to delete question:', error);
-      // Optionally, show an error message to the user
+      setMessage('Failed to delete question. Please try again.');
+      setTimeout(() => setMessage(null), 3000);
     }
   };
 
@@ -164,6 +162,11 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      {message && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <span className="block sm:inline">{message}</span>
+        </div>
+      )}
       <div className="mb-8" ref={editSectionRef}>
         <h2 className="text-2xl font-semibold mb-4">
           {editingQuestion ? 'Edit Question' : 'Add New Question'}
@@ -171,6 +174,7 @@ export default function AdminPage() {
         <QuestionForm
           onSubmit={editingQuestion ? handleEditQuestion : handleAddQuestion}
           initialData={editingQuestion}
+          onCancel={() => setEditingQuestion(null)}
         />
       </div>
       <div>
@@ -182,21 +186,37 @@ export default function AdminPage() {
             <thead>
               <tr>
                 <th className="border px-4 py-2">Domain</th>
-                <th className="border px-4 py-2">Question Count</th>
+                <th className="border px-4 py-2">Total Questions</th>
+                <th className="border px-4 py-2">Single Choice</th>
+                <th className="border px-4 py-2">Multiple Choice</th>
               </tr>
             </thead>
             <tbody>
-              {domainCounts.map(({ domain, count }) => (
-                <tr key={domain}>
-                  <td className="border px-4 py-2">
-                    <a href={`#${domain}`} className="text-blue-500 hover:underline">{domain}</a>
-                  </td>
-                  <td className="border px-4 py-2 text-center">{count}</td>
-                </tr>
-              ))}
+              {domainCounts.map(({ domain, count }) => {
+                const domainQuestions = questions.filter(q => q.domain === domain);
+                const singleChoiceCount = domainQuestions.filter(q => q.options.filter(o => o.correct).length === 1).length;
+                const multipleChoiceCount = domainQuestions.filter(q => q.options.filter(o => o.correct).length > 1).length;
+                
+                return (
+                  <tr key={domain}>
+                    <td className="border px-4 py-2">
+                      <a href={`#${domain}`} className="text-blue-500 hover:underline">{domain}</a>
+                    </td>
+                    <td className="border px-4 py-2 text-center">{count}</td>
+                    <td className="border px-4 py-2 text-center">{singleChoiceCount}</td>
+                    <td className="border px-4 py-2 text-center">{multipleChoiceCount}</td>
+                  </tr>
+                );
+              })}
               <tr>
                 <td className="border px-4 py-2 font-bold">Total</td>
                 <td className="border px-4 py-2 text-center font-bold">{totalQuestions}</td>
+                <td className="border px-4 py-2 text-center font-bold">
+                  {questions.filter(q => q.options.filter(o => o.correct).length === 1).length}
+                </td>
+                <td className="border px-4 py-2 text-center font-bold">
+                  {questions.filter(q => q.options.filter(o => o.correct).length > 1).length}
+                </td>
               </tr>
             </tbody>
           </table>

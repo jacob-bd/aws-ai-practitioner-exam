@@ -1,32 +1,40 @@
 import React from 'react';
 
 const DomainSection = ({ domain, performance, questions, onQuestionSelect }) => {
-  const percentage = performance.percentage;
-
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-6">
-      <div className="flex items-start mb-4">
-        <div className="w-20 h-14 mr-4 bg-blue-600 flex items-center justify-center rounded-2xl">
-          <span className="text-white text-xl font-bold px-2">{percentage}%</span>
-        </div>
-        <div>
-          <h3 className="text-xl font-semibold text-navy-blue">{domain}</h3>
-          <p className="text-sm text-gray-600 mt-1">
-            This section includes topics from the {domain} section of the exam guide.
-          </p>
-        </div>
-      </div>
-      <div className="grid grid-cols-8 gap-2 mt-4">
-        {questions.filter(q => q.domain === domain).map((question, index) => (
-          <button
-            key={question.text}
-            onClick={() => onQuestionSelect(question)}
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
-              ${question.userAnswer && question.userAnswer.isCorrect ? 'bg-green-500' : 'bg-red-500'} text-white`}
-          >
-            {index + 1}
-          </button>
-        ))}
+    <div className="mb-6">
+      <h4 className="text-lg font-semibold mb-2 text-gray-800">{domain}</h4>
+      <table className="w-full text-left border-collapse">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="p-2 border">Question Count</th>
+            <th className="p-2 border">Correct</th>
+            <th className="p-2 border">Incorrect</th>
+            <th className="p-2 border">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="p-2 border">{questions.length}</td>
+            <td className="p-2 border">{performance.correct}</td>
+            <td className="p-2 border">{performance.incorrect}</td>
+            <td className="p-2 border">{performance.percentage}%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="mt-4">
+        <h5 className="text-md font-semibold mb-2 text-gray-700">Questions:</h5>
+        <ul className="list-disc pl-5">
+          {questions.map((question, index) => (
+            <li 
+              key={index} 
+              className={`cursor-pointer ${question.userAnswer && question.userAnswer.isCorrect ? 'text-green-600' : 'text-red-600'}`}
+              onClick={() => onQuestionSelect(question)}
+            >
+              Question {index + 1}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -3,8 +3,13 @@ import React from 'react';
 const QuestionReview = ({ question }) => {
   if (!question) return null;
 
-  const userAnswerIndex = question.userAnswer ? question.userAnswer.selectedOption : null;
-  const correctAnswerIndex = question.options.findIndex(option => option.correct);
+  const userAnswerIndices = question.userAnswer ? question.userAnswer.selectedOptions : [];
+  const correctAnswerIndices = question.options.reduce((acc, option, index) => {
+    if (option.correct) acc.push(index);
+    return acc;
+  }, []);
+
+  const isCorrect = question.userAnswer && question.userAnswer.isCorrect;
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
@@ -16,35 +21,39 @@ const QuestionReview = ({ question }) => {
           <li 
             key={index} 
             className={`p-2 rounded flex items-center ${
-              index === userAnswerIndex 
+              userAnswerIndices.includes(index) 
                 ? (option.correct ? 'bg-green-100' : 'bg-red-100') 
                 : (option.correct ? 'bg-green-100' : '')
             }`}
           >
             <div className={`w-3 h-3 mr-3 rounded-full border border-gray-400 flex-shrink-0 ${
-              index === userAnswerIndex ? 'bg-gray-500 border-gray-500' : ''
+              userAnswerIndices.includes(index) ? 'bg-gray-500 border-gray-500' : ''
             }`}></div>
             <p className={`${option.correct ? 'font-semibold' : ''} text-gray-800`}>{option.text}</p>
           </li>
         ))}
       </ul>
 
-      {userAnswerIndex !== null && (
+      {userAnswerIndices.length > 0 && (
         <div className="mt-4 space-y-4">
-          {!question.options[userAnswerIndex].correct && (
+          {!isCorrect && (
             <div>
               <p className="font-semibold text-red-600">Incorrect:</p>
-              <p className="text-gray-800">{question.options[userAnswerIndex].explanation}</p>
+              {userAnswerIndices.map(index => (
+                <p key={index} className="text-gray-800">{question.options[index].explanation}</p>
+              ))}
             </div>
           )}
           <div>
-            <p className="font-semibold text-green-600">Correct Answer:</p>
-            <p className="text-gray-800">{question.options[correctAnswerIndex].explanation}</p>
+            <p className="font-semibold text-green-600">Correct Answer(s):</p>
+            {correctAnswerIndices.map(index => (
+              <p key={index} className="text-gray-800">{question.options[index].explanation}</p>
+            ))}
           </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default QuestionReview;

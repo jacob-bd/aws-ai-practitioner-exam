@@ -8,7 +8,7 @@ const DOMAINS = [
   'Security, Compliance, and Governance for AI Solutions'
 ];
 
-export default function QuestionForm({ onSubmit, initialData }) {
+export default function QuestionForm({ onSubmit, initialData, onCancel }) {
   const [question, setQuestion] = useState(initialData || {
     text: '',
     type: 'single',
@@ -26,6 +26,7 @@ export default function QuestionForm({ onSubmit, initialData }) {
     e.preventDefault();
     onSubmit(question);
     if (!initialData) {
+      // Clear the form if it's a new question
       setQuestion({
         text: '',
         type: 'single',
@@ -57,11 +58,11 @@ export default function QuestionForm({ onSubmit, initialData }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block mb-1">Question Text:</label>
-        <input
-          type="text"
+        <textarea
           value={question.text}
           onChange={(e) => setQuestion({ ...question, text: e.target.value })}
           className="w-full p-2 border rounded text-black"
+          rows="4"  // This sets the initial number of visible text lines
           required
         />
       </div>
@@ -130,9 +131,16 @@ export default function QuestionForm({ onSubmit, initialData }) {
           Add Option
         </button>
       </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-        {initialData ? 'Update Question' : 'Add Question'}
-      </button>
+      <div className="flex justify-between">
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          {initialData ? 'Update Question' : 'Add Question'}
+        </button>
+        {initialData && (
+          <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded">
+            Cancel
+          </button>
+        )}
+      </div>
       <style jsx>{`
         select, input[type="text"], textarea {
           color: black;
