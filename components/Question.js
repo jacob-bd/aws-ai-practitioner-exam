@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion, immediateFeedback }) => {
+const Question = ({ 
+  question, 
+  onAnswer, 
+  showFeedback, 
+  answered, 
+  onNextQuestion, 
+  immediateFeedback, 
+  questionIndex, 
+  totalQuestions, 
+  onQuestionSelect,
+  userAnswers,
+  questions
+}) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
@@ -48,7 +60,10 @@ const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion, 
   };
 
   return (
-    <div className="question bg-gray-700 rounded-lg p-4 space-y-4">
+    <div className="question bg-gray-700 rounded-lg p-4 space-y-4 relative">
+      <div className="absolute top-2 right-2 text-sm text-gray-400">
+        Question {questionIndex + 1} of {totalQuestions}
+      </div>
       <h2 className="text-xl font-semibold text-white">{question.text}</h2>
       <p className="text-sm text-gray-400 italic">Domain: {question.domain}</p>
       <p className="text-sm text-yellow-400">
@@ -107,6 +122,37 @@ const Question = ({ question, onAnswer, showFeedback, answered, onNextQuestion, 
           ))}
         </div>
       )}
+      <div className="flex flex-wrap gap-2 mt-4">
+        {Array.from({ length: totalQuestions }).map((_, index) => {
+          const isCurrent = index === questionIndex;
+          const isAnswered = index < questionIndex || (index === questionIndex && hasSubmitted);
+          let bgColor = 'bg-gray-300';
+          
+          if (isCurrent) {
+            bgColor = 'bg-blue-500';
+          } else if (isAnswered) {
+            if (immediateFeedback) {
+              // For immediate feedback, use green for correct and red for incorrect
+              const questionAnswer = userAnswers[questions[index].text];
+              bgColor = questionAnswer && questionAnswer.isCorrect ? 'bg-green-500' : 'bg-red-500';
+            } else {
+              // For feedback at the end, use light green for answered questions
+              bgColor = 'bg-green-200';
+            }
+          }
+
+          return (
+            <button
+              key={index}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white ${bgColor}`}
+              onClick={() => onQuestionSelect(index)}
+              disabled={index > questionIndex}
+            >
+              {index + 1}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

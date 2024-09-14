@@ -12,7 +12,8 @@ const DomainSection = ({ domain, performance, questions, onQuestionSelect }) => 
     'Fundamentals of Generative AI': 'Covers basic concepts and principles of generative AI technologies.',
     'Applications of Foundation Models': 'Explores practical uses and implementations of foundation models in various fields.',
     'Guidelines for Responsible AI': 'Focuses on ethical considerations and best practices in AI development and deployment.',
-    'Security, Compliance, and Governance for AI Solutions': 'Addresses security measures, regulatory compliance, and governance frameworks for AI systems.'
+    'Security, Compliance, and Governance for AI Solutions': 'Addresses security measures, regulatory compliance, and governance frameworks for AI systems.',
+    'Fundamentals of AI and ML': 'Covers essential concepts, terminologies, and practical applications of artificial intelligence and machine learning, including basic AI terms, types of learning, data types, and real-world use cases'
   };
 
   return (

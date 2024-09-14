@@ -147,6 +147,11 @@ export default function Home() {
                   answered={showFeedback}
                   onNextQuestion={moveToNextQuestion}
                   immediateFeedback={immediateFeedback}
+                  questionIndex={currentQuestionIndex}
+                  totalQuestions={questions.length}
+                  onQuestionSelect={(index) => setCurrentQuestionIndex(index)}
+                  userAnswers={userAnswers}
+                  questions={questions}
                 />
               </div>
               <div className="w-1/5">
