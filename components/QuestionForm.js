@@ -56,44 +56,49 @@ export default function QuestionForm({ onSubmit, initialData, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Move Type and Domain dropdowns here and make them inline */}
+      <div className="flex space-x-4">
+        <div className="w-1/2">
+          <label className="block mb-1">Type:</label>
+          <select
+            value={question.type}
+            onChange={(e) => setQuestion({ ...question, type: e.target.value })}
+            className="w-full p-2 border rounded"
+            required
+          >
+            <option value="single">Single Answer</option>
+            <option value="multiple">Multiple Answer</option>
+          </select>
+        </div>
+        <div className="w-1/2">
+          <label className="block mb-1">Domain:</label>
+          <select
+            value={question.domain}
+            onChange={(e) => setQuestion({ ...question, domain: e.target.value })}
+            className="w-full p-2 border rounded"
+            required
+          >
+            <option value="">Select a domain</option>
+            <option value="Fundamentals of AI and ML">Fundamentals of AI and ML</option>
+            <option value="Fundamentals of Generative AI">Fundamentals of Generative AI</option>
+            <option value="Applications of Foundation Models">Applications of Foundation Models</option>
+            <option value="Guidelines for Responsible AI">Guidelines for Responsible AI</option>
+            <option value="Security, Compliance, and Governance for AI Solutions">Security, Compliance, and Governance for AI Solutions</option>
+          </select>
+        </div>
+      </div>
+
       <div>
-        <label className="block mb-1">Question Text:</label>
+        <label className="block mb-1">Question:</label>
         <textarea
           value={question.text}
           onChange={(e) => setQuestion({ ...question, text: e.target.value })}
-          className="w-full p-2 border rounded text-black"
-          rows="4"  // This sets the initial number of visible text lines
+          className="w-full p-2 border rounded"
+          rows="3"
           required
-        />
+        ></textarea>
       </div>
-      <div>
-        <label className="block mb-1">Type:</label>
-        <select
-          value={question.type}
-          onChange={(e) => setQuestion({ ...question, type: e.target.value })}
-          className="w-full p-2 border rounded text-black"
-          required
-        >
-          <option value="single">Single Choice</option>
-          <option value="multiple">Multiple Choice</option>
-        </select>
-      </div>
-      <div>
-        <label className="block mb-1">Domain:</label>
-        <select
-          value={question.domain}
-          onChange={(e) => setQuestion({ ...question, domain: e.target.value })}
-          className="w-full p-2 border rounded text-black"
-          required
-        >
-          <option value="">Select a domain</option>
-          {DOMAINS.map((domain) => (
-            <option key={domain} value={domain}>
-              {domain}
-            </option>
-          ))}
-        </select>
-      </div>
+
       <div>
         <label className="block mb-1">Options:</label>
         {question.options.map((option, index) => (
@@ -131,15 +136,13 @@ export default function QuestionForm({ onSubmit, initialData, onCancel }) {
           Add Option
         </button>
       </div>
-      <div className="flex justify-between">
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+      <div className="flex justify-end space-x-2">
+        <button type="button" onClick={onCancel} className="px-4 py-2 bg-gray-300 rounded">
+          Cancel
+        </button>
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
           {initialData ? 'Update Question' : 'Add Question'}
         </button>
-        {initialData && (
-          <button type="button" onClick={onCancel} className="bg-gray-500 text-white px-4 py-2 rounded">
-            Cancel
-          </button>
-        )}
       </div>
       <style jsx>{`
         select, input[type="text"], textarea {

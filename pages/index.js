@@ -3,6 +3,7 @@ import ExamSelector from '../components/ExamSelector';
 import Question from '../components/Question';
 import Results from '../components/Results';
 import { getRandomQuestions } from '../utils/questionPool';
+import Link from 'next/link';
 
 export default function Home() {
   const [questions, setQuestions] = useState([]);
@@ -133,51 +134,60 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 relative">
-      {examState === 'select' && <ExamSelector onStart={startExam} />}
-      {examState === 'exam' && (
-        <div className="flex justify-center items-start pt-4">
-          <div className="w-full max-w-4xl bg-gray-800 p-4 rounded-lg shadow-lg">
-            <div className="flex justify-between items-start">
-              <div className="w-4/5 pr-4">
-                <Question
-                  question={questions[currentQuestionIndex]}
-                  onAnswer={handleAnswer}
-                  showFeedback={showFeedback}
-                  answered={showFeedback}
-                  onNextQuestion={moveToNextQuestion}
-                  immediateFeedback={immediateFeedback}
-                  questionIndex={currentQuestionIndex}
-                  totalQuestions={questions.length}
-                  onQuestionSelect={(index) => setCurrentQuestionIndex(index)}
-                  userAnswers={userAnswers}
-                  questions={questions}
-                />
-              </div>
-              <div className="w-1/5">
-                <div className="bg-gray-700 text-white px-1 py-2 rounded-md border border-gray-600 text-center">
-                  <div className="text-sm font-semibold">Time:</div>
-                  <div className="text-lg">
-                    {timerType === 'limit' ? formatTime(remainingTime) : formatTime(elapsedTime)}
+    <div className="container mx-auto px-4 relative min-h-screen flex flex-col">
+      <div className="flex-grow">
+        {examState === 'select' && <ExamSelector onStart={startExam} />}
+        {examState === 'exam' && (
+          <div className="flex justify-center items-start pt-4">
+            <div className="w-full max-w-4xl bg-gray-800 p-4 rounded-lg shadow-lg">
+              <div className="flex justify-between items-start">
+                <div className="w-4/5 pr-4">
+                  <Question
+                    question={questions[currentQuestionIndex]}
+                    onAnswer={handleAnswer}
+                    showFeedback={showFeedback}
+                    answered={showFeedback}
+                    onNextQuestion={moveToNextQuestion}
+                    immediateFeedback={immediateFeedback}
+                    questionIndex={currentQuestionIndex}
+                    totalQuestions={questions.length}
+                    onQuestionSelect={(index) => setCurrentQuestionIndex(index)}
+                    userAnswers={userAnswers}
+                    questions={questions}
+                  />
+                </div>
+                <div className="w-1/5">
+                  <div className="bg-gray-700 text-white px-1 py-2 rounded-md border border-gray-600 text-center">
+                    <div className="text-sm font-semibold">Time:</div>
+                    <div className="text-lg">
+                      {timerType === 'limit' ? formatTime(remainingTime) : formatTime(elapsedTime)}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-      {examState === 'results' && (
-        <Results
-          score={score}
-          totalQuestions={questions.length}
-          domainPerformance={domainPerformance}
-          elapsedTime={elapsedTime}
-          questions={questions.map(q => ({
-            ...q,
-            userAnswer: userAnswers[q.text]
-          }))}
-        />
-      )}
+        )}
+        {examState === 'results' && (
+          <Results
+            score={score}
+            totalQuestions={questions.length}
+            domainPerformance={domainPerformance}
+            elapsedTime={elapsedTime}
+            questions={questions.map(q => ({
+              ...q,
+              userAnswer: userAnswers[q.text]
+            }))}
+          />
+        )}
+      </div>
+      
+      {/* Add this new div for the admin link at the bottom */}
+      <div className="mt-8 mb-4 text-center">
+        <Link href="/admin" className="text-blue-500 hover:text-blue-700 underline">
+          Question Management
+        </Link>
+      </div>
     </div>
   );
 }
