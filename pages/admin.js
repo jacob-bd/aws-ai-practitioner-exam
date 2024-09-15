@@ -2,6 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import QuestionForm from '../components/QuestionForm';
 
+const DOMAINS = [
+  'Fundamentals of AI and ML',
+  'Fundamentals of Generative AI',
+  'Applications of Foundation Models',
+  'Guidelines for Responsible AI',
+  'Security, Compliance, and Governance for AI Solutions'
+];
+
 export default function AdminPage() {
   const [questions, setQuestions] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -9,6 +17,9 @@ export default function AdminPage() {
   const [message, setMessage] = useState(null);
   const router = useRouter();
   const editSectionRef = useRef(null);
+  const [aiQuestionType, setAiQuestionType] = useState('single');
+  const [aiQuestionDomain, setAiQuestionDomain] = useState(DOMAINS[0]);
+  const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -139,6 +150,42 @@ export default function AdminPage() {
     }
   };
 
+  const handleGenerateQuestion = async () => {
+    setIsGeneratingQuestion(true);
+    try {
+      const response = await fetch('/api/generateQuestion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionType: aiQuestionType, questionDomain: aiQuestionDomain }),
+      });
+
+      if (response.ok) {
+        const { question } = await response.json();
+        await handleAddQuestion(question);
+        setMessage('AI-generated question added successfully!');
+        // Optionally, you can reset the form fields here
+        setAiQuestionType('single');
+        setAiQuestionDomain(DOMAINS[0]);
+      } else {
+        setMessage('Failed to generate question. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error generating question:', error);
+      setMessage('An error occurred while generating the question.');
+    } finally {
+      setIsGeneratingQuestion(false);
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [message]);
+
   if (!isAuthenticated) {
     return <div>Checking authentication...</div>;
   }
@@ -163,10 +210,51 @@ export default function AdminPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       {message && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span className="block sm:inline">{message}</span>
+        <div className={`mt-4 p-2 rounded ${message.includes('successfully') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+          {message}
         </div>
       )}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">Add New Exam Questions with AI</h2>
+        <div className="flex space-x-4 mb-4">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Question Type
+            </label>
+            <select
+              value={aiQuestionType}
+              onChange={(e) => setAiQuestionType(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white dark:bg-gray-700"
+            >
+              <option value="single">Single Answer</option>
+              <option value="multiple">Multiple Answers</option>
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Question Domain
+            </label>
+            <select
+              value={aiQuestionDomain}
+              onChange={(e) => setAiQuestionDomain(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white dark:bg-gray-700"
+            >
+              {DOMAINS.map((domain) => (
+                <option key={domain} value={domain}>
+                  {domain}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <button
+          onClick={handleGenerateQuestion}
+          disabled={isGeneratingQuestion}
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-green-300"
+        >
+          {isGeneratingQuestion ? 'Generating...' : 'Generate Question'}
+        </button>
+      </div>
       <div className="mb-8" ref={editSectionRef}>
         <h2 className="text-2xl font-semibold mb-4">
           {editingQuestion ? 'Edit Question' : 'Add New Question'}

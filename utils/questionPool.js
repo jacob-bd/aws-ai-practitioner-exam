@@ -2487,6 +2487,72 @@ let questionPool = [
         "explanation": "GANs are primarily used for generation tasks, not classification."
       }
     ]
+  },
+  {
+    "id": "1726369147069",
+    "text": "Which of the following practices are essential for ensuring responsible AI usage in an organization?",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Regularly audit AI models for bias and fairness.",
+        "correct": true,
+        "explanation": "Regular auditing helps identify and mitigate any biases in AI models, ensuring they perform fairly across different demographics."
+      },
+      {
+        "text": "Limit data privacy measures to user consent only.",
+        "correct": false,
+        "explanation": "Responsible AI requires comprehensive data privacy measures that go beyond user consent, including secure data handling and compliance with regulations."
+      },
+      {
+        "text": "Ensure transparency in AI decision-making processes.",
+        "correct": true,
+        "explanation": "Transparency in how AI systems make decisions builds trust and allows for better understanding and accountability of AI outputs."
+      },
+      {
+        "text": "Develop AI systems without considering their environmental impact.",
+        "correct": false,
+        "explanation": "Responsible AI practices include considering the environmental impact of AI systems, such as energy consumption and resource usage."
+      },
+      {
+        "text": "Incorporate diverse perspectives during AI development.",
+        "correct": true,
+        "explanation": "Incorporating diverse perspectives can help identify potential biases and improve the overall robustness and fairness of AI systems."
+      }
+    ]
+  },
+  {
+    "id": "1726369451377",
+    "text": "Which of the following practices are essential for ensuring responsible AI usage in organizations?",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Ensuring transparency in AI decision-making processes.",
+        "correct": true,
+        "explanation": "Transparency helps stakeholders understand how AI models make decisions, which is crucial for trust and accountability."
+      },
+      {
+        "text": "Prioritizing speed over accuracy in AI model deployment.",
+        "correct": false,
+        "explanation": "While speed can be important, prioritizing it over accuracy can lead to harmful consequences and undermine the effectiveness of AI systems."
+      },
+      {
+        "text": "Regularly monitoring and auditing AI systems for bias and ethical concerns.",
+        "correct": true,
+        "explanation": "Regular monitoring and auditing are necessary to identify and mitigate biases, ensuring that AI systems operate fairly and ethically."
+      },
+      {
+        "text": "Using proprietary data without considering data privacy regulations.",
+        "correct": false,
+        "explanation": "Ignoring data privacy regulations can lead to legal issues and violate ethical standards, making it a poor practice in responsible AI."
+      },
+      {
+        "text": "Involving diverse teams in the AI development process.",
+        "correct": true,
+        "explanation": "Diverse teams bring different perspectives, which can help identify potential biases and lead to more equitable AI solutions."
+      }
+    ]
   }
 ];
 
