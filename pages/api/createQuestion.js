@@ -76,13 +76,14 @@ Please provide the response as a JSON object in the following format:
 
     try {
       addQuestion(generatedQuestion);
-      updateQuestionPoolFile(); // Add this line
+      updateQuestionPoolFile();
       res.status(200).json({ message: 'Question added successfully', question: generatedQuestion });
     } catch (error) {
       if (error.message.includes('Duplicate question')) {
-        res.status(409).json({ error: error.message });
+        res.status(409).json({ error: 'A question with this text already exists in the pool.' });
       } else {
-        throw error; // Re-throw if it's not a duplicate error
+        console.error('Error adding question:', error);
+        res.status(500).json({ error: 'An error occurred while adding the question.' });
       }
     }
   } catch (error) {

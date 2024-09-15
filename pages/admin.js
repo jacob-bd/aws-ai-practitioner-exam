@@ -179,9 +179,26 @@ export default function AdminPage() {
 
       if (response.ok) {
         const { question } = await response.json();
-        setEditingQuestion(question);
+        
+        // Populate the form fields with the generated question
+        setNewQuestion({
+          text: question.text,
+          type: question.type,
+          domain: question.domain,
+          options: question.options.map(option => ({
+            text: option.text,
+            correct: option.correct,
+            explanation: option.explanation
+          }))
+        });
+        
         setIsAddingNewQuestion(true);
         setMessage('AI-generated question loaded into the form. Please review and edit if necessary.');
+        
+        // Clear the message after 5 seconds
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
       } else {
         setMessage('Failed to generate question. Please try again.');
       }
@@ -272,15 +289,18 @@ export default function AdminPage() {
         <h2 className="text-2xl font-semibold mb-4">
           {editingQuestion ? 'Edit Question' : 'Add New Questions'}
         </h2>
-        <QuestionForm
-          onSubmit={isAddingNewQuestion ? handleAddQuestion : handleEditQuestion}
-          initialData={editingQuestion}
-          onCancel={() => {
-            setEditingQuestion(null);
-            setIsAddingNewQuestion(true);
-          }}
-          isAddingNew={isAddingNewQuestion}
-        />
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <QuestionForm
+            onSubmit={isAddingNewQuestion ? handleAddQuestion : handleEditQuestion}
+            initialData={isAddingNewQuestion ? newQuestion : editingQuestion}
+            onCancel={() => {
+              setEditingQuestion(null);
+              setIsAddingNewQuestion(true);
+            }}
+            isAddingNew={isAddingNewQuestion}
+            setNewQuestion={setNewQuestion}
+          />
+        </div>
         {addConfirmation && (
           <p className="text-green-600 mt-2">{addConfirmation}</p>
         )}

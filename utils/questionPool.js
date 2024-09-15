@@ -822,7 +822,7 @@ let questionPool = [
         "correct": false,
         "explanation": "Reducing memory usage is not the primary purpose of the softmax function."
       }
-    ],
+    ]
   },
   {
     "text": "What is the primary purpose of the softmax function in generative language models?",
@@ -849,7 +849,7 @@ let questionPool = [
         "correct": false,
         "explanation": "Reducing memory usage is not the primary purpose of the softmax function."
       }
-    ],
+    ]
   },
   {
     "text": "What is the primary purpose of the softmax function in generative language models?",
@@ -2640,7 +2640,7 @@ let questionPool = [
       }
     ],
     "id": "1726435512460"
-  },  
+  },
   {
     "text": "Which of the following statements accurately describes key aspects of Generative AI? (select two)",
     "type": "multiple",
@@ -2673,6 +2673,633 @@ let questionPool = [
       }
     ],
     "id": "1726435873628"
+  },
+  {
+    "text": "Which of the following statements accurately describes the differences between supervised and unsupervised learning in machine learning? (select three)",
+    "type": "multiple",
+    "domain": "Fundamentals of AI and ML",
+    "options": [
+      {
+        "text": "Supervised learning requires labeled data, while unsupervised learning does not.",
+        "correct": true,
+        "explanation": "This statement is correct. Supervised learning uses labeled datasets to train models, while unsupervised learning works with data without labels, seeking to find hidden patterns or groupings."
+      },
+      {
+        "text": "Unsupervised learning is typically used for classification tasks.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Unsupervised learning is generally used for clustering or association tasks, where the goal is to find structure in the data rather than classifying it into predefined categories."
+      },
+      {
+        "text": "Supervised learning can be used for regression and classification tasks.",
+        "correct": true,
+        "explanation": "This statement is correct. Supervised learning encompasses both regression tasks, where the output is continuous, and classification tasks, where the output is categorical."
+      },
+      {
+        "text": "Unsupervised learning algorithms do not require any training data.",
+        "correct": false,
+        "explanation": "This statement is incorrect. While unsupervised learning does not require labeled data, it still requires input data to identify patterns or groupings."
+      },
+      {
+        "text": "Both supervised and unsupervised learning can be applied to the same dataset depending on the objective of the analysis.",
+        "correct": true,
+        "explanation": "This statement is correct. Depending on the goals of the analysis, a dataset can be utilized for both supervised and unsupervised learning approaches, yielding different insights."
+      }
+    ],
+    "id": "1726438526653"
+  },
+  {
+    "text": "Which of the following are common applications of foundation models in AI? Select three.",
+    "type": "multiple",
+    "domain": "Applications of Foundation Models",
+    "options": [
+      {
+        "text": "Natural Language Processing tasks such as text generation and sentiment analysis",
+        "correct": true,
+        "explanation": "Foundation models are widely used in NLP for tasks like text generation, translation, and sentiment analysis due to their ability to understand and generate human-like text."
+      },
+      {
+        "text": "Image recognition and classification in computer vision applications",
+        "correct": true,
+        "explanation": "Foundation models can also be fine-tuned for computer vision tasks, such as image recognition and classification, leveraging their deep learning architectures."
+      },
+      {
+        "text": "Developing custom hardware for AI training and inference",
+        "correct": false,
+        "explanation": "Foundation models are primarily software-based and do not involve the development of custom hardware. Their applications focus on leveraging existing computational resources."
+      },
+      {
+        "text": "Automated customer support through chatbots and virtual assistants",
+        "correct": true,
+        "explanation": "Foundation models are often employed in chatbots and virtual assistants to provide automated customer support by understanding and responding to user queries."
+      },
+      {
+        "text": "Creating physical robots for manufacturing processes",
+        "correct": false,
+        "explanation": "While AI can enhance robotics, foundation models themselves do not directly create physical robots; they are used for processing data and making decisions within existing robotic systems."
+      }
+    ],
+    "id": "1726438810194"
+  },
+  {
+    "text": "Which of the following practices are essential for ensuring security and compliance in AI solutions deployed on AWS? (Select three)",
+    "type": "multiple",
+    "domain": "Security, Compliance, and Governance for AI Solutions",
+    "options": [
+      {
+        "text": "Implementing strict access controls using AWS Identity and Access Management (IAM)",
+        "correct": true,
+        "explanation": "Using IAM to enforce strict access controls is essential for ensuring that only authorized users can access the AI resources, thereby enhancing the security of the solution."
+      },
+      {
+        "text": "Storing all AI model data in a publicly accessible S3 bucket",
+        "correct": false,
+        "explanation": "Storing AI model data in a publicly accessible S3 bucket poses significant security risks, as it can lead to unauthorized access and data breaches."
+      },
+      {
+        "text": "Regularly auditing and monitoring AI applications and infrastructure",
+        "correct": true,
+        "explanation": "Regular audits and monitoring of AI applications help in identifying vulnerabilities and ensuring compliance with security standards and regulations."
+      },
+      {
+        "text": "Using AWS compliance programs to guide solution architecture",
+        "correct": true,
+        "explanation": "Leveraging AWS compliance programs provides guidance on best practices and helps organizations meet regulatory requirements, enhancing governance for AI solutions."
+      },
+      {
+        "text": "Disabling logging and monitoring features to reduce costs",
+        "correct": false,
+        "explanation": "Disabling logging and monitoring features is detrimental to security and compliance, as it prevents organizations from tracking access and changes to their AI solutions."
+      }
+    ],
+    "id": "1726439240283"
+  },
+  {
+    "text": "Which of the following practices enhance the security and compliance of AI solutions deployed on AWS? Select three.",
+    "type": "multiple",
+    "domain": "Security, Compliance, and Governance for AI Solutions",
+    "options": [
+      {
+        "text": "Implement IAM roles with least privilege access for AI services.",
+        "correct": true,
+        "explanation": "Implementing IAM roles with least privilege access ensures that AI services have only the permissions necessary to perform their tasks, reducing the risk of unauthorized access and potential data breaches."
+      },
+      {
+        "text": "Use publicly accessible S3 buckets to store AI models for ease of access.",
+        "correct": false,
+        "explanation": "Using publicly accessible S3 buckets poses a significant security risk as it can lead to unauthorized access to sensitive AI models. Instead, S3 buckets should be configured to restrict access appropriately."
+      },
+      {
+        "text": "Regularly audit and monitor AI models for compliance with data privacy regulations.",
+        "correct": true,
+        "explanation": "Regular auditing and monitoring of AI models help ensure compliance with data privacy regulations, such as GDPR or CCPA, and allow organizations to identify and mitigate any potential compliance risks."
+      },
+      {
+        "text": "Encrypt all data at rest and in transit for AI applications.",
+        "correct": true,
+        "explanation": "Encrypting data at rest and in transit protects sensitive information from being intercepted or accessed by unauthorized users, which is essential for maintaining compliance with security standards."
+      },
+      {
+        "text": "Avoid using multi-factor authentication (MFA) for accessing AI services to streamline operations.",
+        "correct": false,
+        "explanation": "Avoiding multi-factor authentication increases the risk of unauthorized access. MFA is a critical security measure that adds an additional layer of security for accessing AI services."
+      }
+    ],
+    "id": "1726439295846"
+  },
+  {
+    "text": "Which of the following actions are considered best practices for ensuring responsible AI deployment? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Implementing bias detection mechanisms during model training and evaluation.",
+        "correct": true,
+        "explanation": "This is a best practice as it helps identify and mitigate biases in AI models, ensuring fair and equitable outcomes."
+      },
+      {
+        "text": "Using proprietary data without transparency to improve model accuracy.",
+        "correct": false,
+        "explanation": "Using proprietary data without transparency can lead to ethical concerns and lack of accountability, thus it is not a responsible practice."
+      },
+      {
+        "text": "Regularly updating stakeholders on AI model performance and impact.",
+        "correct": true,
+        "explanation": "Regular communication with stakeholders fosters transparency and trust, and helps ensure the AI system meets ethical standards."
+      },
+      {
+        "text": "Conducting post-deployment audits to assess the model's real-world impact.",
+        "correct": true,
+        "explanation": "Post-deployment audits are crucial for understanding the consequences of AI systems in practice and for making necessary adjustments."
+      },
+      {
+        "text": "Prioritizing speed of deployment over ethical considerations.",
+        "correct": false,
+        "explanation": "Prioritizing speed over ethics can lead to significant negative consequences, so it is essential to balance both aspects in AI deployment."
+      }
+    ],
+    "id": "1726439762319"
+  },
+  {
+    "text": "Which of the following practices are essential for ensuring responsible AI use in organizations? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Conduct regular bias audits on AI models.",
+        "correct": true,
+        "explanation": "Conducting regular bias audits is crucial for identifying and mitigating bias in AI models, ensuring fairness and equity in AI-driven decisions."
+      },
+      {
+        "text": "Limit transparency by keeping AI algorithms proprietary.",
+        "correct": false,
+        "explanation": "Limiting transparency by keeping algorithms proprietary can lead to mistrust and hinder accountability. Responsible AI practices encourage transparency in AI operations."
+      },
+      {
+        "text": "Implement user feedback mechanisms to improve AI systems.",
+        "correct": true,
+        "explanation": "Implementing user feedback mechanisms helps organizations understand user experiences and improve AI systems based on real-world interactions, enhancing their effectiveness and ethical considerations."
+      },
+      {
+        "text": "Prioritize speed of deployment over ethical considerations.",
+        "correct": false,
+        "explanation": "Prioritizing speed over ethical considerations can lead to harmful consequences. Responsible AI emphasizes the importance of ethical evaluation before deploying AI solutions."
+      },
+      {
+        "text": "Establish clear guidelines and accountability for AI usage.",
+        "correct": true,
+        "explanation": "Establishing clear guidelines and accountability is essential for responsible AI use, ensuring that stakeholders understand their responsibilities and the ethical implications of AI applications."
+      }
+    ],
+    "id": "1726439887878"
+  },
+  {
+    "text": "Which of the following practices are considered essential for ensuring responsible AI usage? Select all that apply.",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Conduct regular audits of AI models for bias and fairness.",
+        "correct": true,
+        "explanation": "Regular audits help identify and mitigate biases in AI models, ensuring fairness in outcomes and adherence to ethical standards."
+      },
+      {
+        "text": "Deploy AI models without monitoring their performance post-launch.",
+        "correct": false,
+        "explanation": "It is crucial to monitor AI models after deployment to ensure they perform as expected and to identify any unintended consequences."
+      },
+      {
+        "text": "Provide transparency about how AI models make decisions.",
+        "correct": true,
+        "explanation": "Transparency in AI decision-making processes fosters trust and allows stakeholders to understand the rationale behind AI-generated outcomes."
+      },
+      {
+        "text": "Limit stakeholder engagement to only technical teams.",
+        "correct": false,
+        "explanation": "Engaging a diverse group of stakeholders, including non-technical teams, is important to capture a wide range of perspectives and ethical considerations."
+      },
+      {
+        "text": "Implement robust data governance policies to manage the data used in AI systems.",
+        "correct": true,
+        "explanation": "Robust data governance policies are essential in managing data quality, privacy, and compliance, which are critical for responsible AI usage."
+      }
+    ],
+    "id": "1726439968481"
+  },
+  {
+    "text": "Which of the following statements accurately describe the characteristics and applications of Generative AI?",
+    "type": "multiple",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "Generative AI can only produce text-based outputs.",
+        "correct": false,
+        "explanation": "Generative AI can produce a variety of outputs, including text, images, audio, and even video, depending on the model and training data used."
+      },
+      {
+        "text": "Generative AI models can learn from large datasets to create new content that resembles the training data.",
+        "correct": true,
+        "explanation": "Generative AI models, such as GANs and VAEs, are designed to learn patterns from large datasets, enabling them to generate new content that mimics the characteristics of the training data."
+      },
+      {
+        "text": "Generative AI is primarily used for data augmentation in machine learning projects.",
+        "correct": false,
+        "explanation": "While data augmentation is one application of Generative AI, it is not its primary use. Generative AI is also widely used for content creation, art generation, and more."
+      },
+      {
+        "text": "Generative AI can be applied in industries such as entertainment, marketing, and healthcare.",
+        "correct": true,
+        "explanation": "Generative AI has diverse applications across various industries, including entertainment for creating art and music, marketing for personalized content, and healthcare for drug discovery and medical imaging."
+      },
+      {
+        "text": "The outputs of Generative AI are always high-quality and reliable.",
+        "correct": false,
+        "explanation": "While Generative AI can produce impressive results, the quality and reliability of its outputs can vary greatly depending on the model, training data, and specific use case."
+      }
+    ],
+    "id": "1726440036468"
+  },
+  {
+    "text": "Which of the following statements accurately describes the principles of Generative AI? Select two.",
+    "type": "multiple",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "Generative AI models can only produce outputs that are similar to the data they were trained on.",
+        "correct": false,
+        "explanation": "While generative AI models typically produce outputs based on patterns learned from training data, they can also generate novel combinations and variations that are not strictly similar to the training data."
+      },
+      {
+        "text": "Generative AI can be used for tasks such as text generation, image synthesis, and music composition.",
+        "correct": true,
+        "explanation": "Generative AI encompasses a wide range of applications, including text generation (like GPT models), image synthesis (such as GANs), and music composition, showcasing its versatility across different domains."
+      },
+      {
+        "text": "The primary goal of a generative AI model is to accurately classify input data into predefined categories.",
+        "correct": false,
+        "explanation": "The main goal of generative AI is to create new data instances that resemble the training data, rather than classifying data into categories, which is a task more aligned with discriminative models."
+      },
+      {
+        "text": "Generative AI models can learn from both labeled and unlabeled data.",
+        "correct": true,
+        "explanation": "Generative AI models can utilize both labeled and unlabeled data for training, often benefiting from unsupervised or semi-supervised learning techniques to improve their performance."
+      },
+      {
+        "text": "Generative AI techniques are limited to supervised learning methods.",
+        "correct": false,
+        "explanation": "Generative AI techniques are not limited to supervised learning; they can also include unsupervised and reinforcement learning methods, allowing for diverse approaches to generating data."
+      }
+    ],
+    "id": "1726440821907"
+  },
+  {
+    "text": "Which of the following statements accurately describes key characteristics of generative AI models? Select two.",
+    "type": "multiple",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "Generative AI models can only generate text-based outputs.",
+        "correct": false,
+        "explanation": "This statement is incorrect because generative AI models can produce various types of outputs, including text, images, audio, and more."
+      },
+      {
+        "text": "Generative AI models learn patterns from a training dataset to create new, similar data.",
+        "correct": true,
+        "explanation": "This statement is correct as generative AI models are designed to learn from existing data and generate new content that shares characteristics with the training data."
+      },
+      {
+        "text": "Generative AI models are strictly supervised and require labeled datasets for training.",
+        "correct": false,
+        "explanation": "This statement is incorrect because many generative AI models, such as GANs and VAEs, can be trained in an unsupervised manner without needing labeled data."
+      },
+      {
+        "text": "The output of generative AI models can be highly creative and often indistinguishable from human-generated content.",
+        "correct": true,
+        "explanation": "This statement is correct as generative AI models can produce outputs that are highly creative, and in some cases, they can closely mimic human creativity, making the outputs hard to distinguish."
+      },
+      {
+        "text": "Generative AI models can only be implemented using deep learning techniques.",
+        "correct": false,
+        "explanation": "This statement is incorrect because while deep learning is commonly used in generative AI, other techniques such as rule-based systems can also be employed, albeit less commonly."
+      }
+    ],
+    "id": "1726441132346"
+  },
+  {
+    "text": "Which of the following principles are essential for implementing Responsible AI practices in machine learning models? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Guidelines for Responsible AI",
+    "options": [
+      {
+        "text": "Transparency in model decision-making processes",
+        "correct": true,
+        "explanation": "Transparency helps stakeholders understand how decisions are made by the AI models, which is crucial for trust and accountability."
+      },
+      {
+        "text": "Prioritizing model accuracy over ethical considerations",
+        "correct": false,
+        "explanation": "While model accuracy is important, it should not come at the expense of ethical considerations; Responsible AI prioritizes both ethics and performance."
+      },
+      {
+        "text": "Continuous monitoring for bias and fairness in AI outcomes",
+        "correct": true,
+        "explanation": "Regular monitoring helps identify and mitigate biases that may appear in AI models, ensuring fairness in outcomes across diverse user groups."
+      },
+      {
+        "text": "Limited user access to AI system insights and data",
+        "correct": false,
+        "explanation": "Responsible AI promotes accessibility to insights and data for users to foster understanding, trust, and ethical use of AI systems."
+      },
+      {
+        "text": "Inclusive participation from diverse stakeholder groups during model development",
+        "correct": true,
+        "explanation": "Involving diverse stakeholders ensures that multiple perspectives are considered, which can help in identifying potential ethical issues and biases in AI systems."
+      }
+    ],
+    "id": "1726441165011"
+  },
+  {
+    "text": "Which of the following are common applications of foundation models in AI? Select all that apply.",
+    "type": "multiple",
+    "domain": "Applications of Foundation Models",
+    "options": [
+      {
+        "text": "Text generation for content creation",
+        "correct": true,
+        "explanation": "Foundation models, particularly those trained on large text corpora, excel at generating coherent and contextually relevant text, making them ideal for content creation tasks."
+      },
+      {
+        "text": "Image recognition and classification",
+        "correct": true,
+        "explanation": "Many foundation models are designed to process and understand images, enabling applications in image recognition and classification, especially in computer vision tasks."
+      },
+      {
+        "text": "Data encryption and security",
+        "correct": false,
+        "explanation": "Foundation models are not typically applied to data encryption or security; they focus more on generating and interpreting data rather than securing it."
+      },
+      {
+        "text": "Natural language understanding for chatbots",
+        "correct": true,
+        "explanation": "Foundation models are widely used in natural language understanding, which is essential for developing chatbots that can comprehend and respond to user queries effectively."
+      },
+      {
+        "text": "Real-time financial transaction processing",
+        "correct": false,
+        "explanation": "While foundation models can analyze financial data, they are not primarily designed for real-time transaction processing, which requires specialized systems for speed and accuracy."
+      }
+    ],
+    "id": "1726441204290"
+  },
+  {
+    "text": "Which of the following applications are commonly associated with foundation models in artificial intelligence? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Applications of Foundation Models",
+    "options": [
+      {
+        "text": "Natural Language Processing (NLP)",
+        "correct": true,
+        "explanation": "Foundation models are heavily used in NLP tasks such as text generation, translation, and sentiment analysis due to their ability to understand and generate human-like text."
+      },
+      {
+        "text": "Image Recognition",
+        "correct": true,
+        "explanation": "Foundation models are also applied in computer vision, including image recognition and object detection, utilizing their extensive training on diverse image datasets."
+      },
+      {
+        "text": "Data Storage Optimization",
+        "correct": false,
+        "explanation": "While data storage optimization is important in cloud computing, it is not a direct application of foundation models, which are primarily focused on learning patterns in data rather than managing storage."
+      },
+      {
+        "text": "Speech Recognition",
+        "correct": true,
+        "explanation": "Foundation models are utilized in speech recognition systems, enabling them to transcribe and understand spoken language effectively."
+      },
+      {
+        "text": "Robotic Process Automation (RPA)",
+        "correct": false,
+        "explanation": "Although RPA can benefit from AI advancements, it does not directly rely on foundation models, as it primarily automates repetitive tasks rather than understanding or generating human-like content."
+      }
+    ],
+    "id": "1726441230298"
+  },
+  {
+    "text": "Which of the following are common applications of foundation models in AI? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Applications of Foundation Models",
+    "options": [
+      {
+        "text": "Natural Language Processing tasks such as text summarization and translation",
+        "correct": true,
+        "explanation": "Foundation models are extensively used in Natural Language Processing (NLP) due to their ability to understand and generate human language, making tasks like summarization and translation more efficient."
+      },
+      {
+        "text": "Creating highly detailed 3D graphics for video games",
+        "correct": false,
+        "explanation": "While AI can assist in game design, foundation models are not typically used for creating 3D graphics. Instead, they focus on language, vision, and other forms of data representation."
+      },
+      {
+        "text": "Image recognition and classification tasks",
+        "correct": true,
+        "explanation": "Foundation models are also applied in computer vision tasks, such as image recognition and classification, allowing for more accurate and efficient image processing."
+      },
+      {
+        "text": "Generating music and audio compositions",
+        "correct": true,
+        "explanation": "Foundation models can be trained to understand patterns in music, enabling them to generate original compositions or assist in audio tasks, showcasing their versatility beyond text and images."
+      },
+      {
+        "text": "Developing real-time video streaming applications",
+        "correct": false,
+        "explanation": "Although AI can enhance video streaming, foundation models are not specifically designed for developing streaming services; they are more focused on analysis and generation in static forms of data."
+      }
+    ],
+    "id": "1726441268559"
+  },
+  {
+    "text": "Which of the following statements accurately describes the differences between supervised and unsupervised learning in machine learning?",
+    "type": "multiple",
+    "domain": "Fundamentals of AI and ML",
+    "options": [
+      {
+        "text": "Supervised learning requires labeled data, while unsupervised learning does not.",
+        "correct": true,
+        "explanation": "This statement is correct. Supervised learning algorithms are trained on labeled datasets, meaning the input data is paired with the correct output. In contrast, unsupervised learning works with unlabeled data, seeking to identify patterns or groupings without pre-existing labels."
+      },
+      {
+        "text": "Unsupervised learning is primarily used for classification tasks.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Unsupervised learning is typically used for clustering tasks or association problems, where the goal is to find hidden patterns or intrinsic structures in unlabeled data, rather than classification, which is a supervised learning task."
+      },
+      {
+        "text": "Both supervised and unsupervised learning can be used for predictive modeling.",
+        "correct": false,
+        "explanation": "This statement is misleading. Supervised learning is specifically designed for predictive modeling because it uses labeled data to make predictions. Unsupervised learning does not predict outcomes but rather finds patterns or groupings within the data without specific outcomes to predict."
+      },
+      {
+        "text": "Supervised learning can be used for regression tasks, while unsupervised learning is used for clustering tasks.",
+        "correct": true,
+        "explanation": "This statement is correct. Supervised learning encompasses both classification and regression tasks, where regression predicts continuous values. Unsupervised learning is commonly used for clustering tasks, which group data points based on similarities."
+      },
+      {
+        "text": "Unsupervised learning can help in feature extraction, while supervised learning cannot.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Both supervised and unsupervised learning can assist with feature extraction. In supervised learning, features are often selected based on their ability to predict the target variable, while in unsupervised learning, features can be derived from the data itself to help identify patterns."
+      }
+    ],
+    "id": "1726441291529"
+  },
+  {
+    "text": "Which of the following statements accurately describes the differences between supervised and unsupervised learning in machine learning?",
+    "type": "multiple",
+    "domain": "Fundamentals of AI and ML",
+    "options": [
+      {
+        "text": "Supervised learning requires labeled data, while unsupervised learning uses unlabeled data.",
+        "correct": true,
+        "explanation": "This statement is correct. Supervised learning relies on labeled datasets to train models, while unsupervised learning finds patterns in data without labels."
+      },
+      {
+        "text": "Unsupervised learning is used primarily for regression tasks, whereas supervised learning is used for classification tasks.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Unsupervised learning is generally not limited to regression tasks; it is often used for clustering and association tasks, while supervised learning can be used for both regression and classification."
+      },
+      {
+        "text": "In supervised learning, the model's performance is evaluated based on how well it predicts outcomes on unseen data.",
+        "correct": true,
+        "explanation": "This statement is correct. The effectiveness of a supervised learning model is typically assessed by its ability to generalize and predict outcomes for new, unseen data."
+      },
+      {
+        "text": "Unsupervised learning algorithms do not require any pre-processing of data.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Unsupervised learning algorithms may still require data pre-processing to remove noise or to normalize data, just like supervised learning."
+      },
+      {
+        "text": "Supervised learning can be used to identify groups within a dataset, similar to unsupervised learning.",
+        "correct": false,
+        "explanation": "This statement is incorrect. While supervised learning can categorize data, it does not identify groups in the same way unsupervised learning does, which focuses on discovering inherent patterns or groupings."
+      }
+    ],
+    "id": "1726441366807"
+  },
+  {
+    "text": "Which of the following statements accurately describes key aspects of Artificial Intelligence (AI) and Machine Learning (ML)?",
+    "type": "multiple",
+    "domain": "Fundamentals of AI and ML",
+    "options": [
+      {
+        "text": "AI is a subset of ML that focuses on creating algorithms capable of learning from and making predictions based on data.",
+        "correct": false,
+        "explanation": "This statement is incorrect because ML is actually a subset of AI. AI encompasses a broader range of technologies and methods, while ML specifically refers to the techniques that allow systems to learn from data."
+      },
+      {
+        "text": "ML models require large amounts of data to learn effectively, but they can also generalize from smaller datasets through techniques like transfer learning.",
+        "correct": true,
+        "explanation": "This statement is correct. While ML models typically benefit from large datasets, transfer learning allows them to leverage knowledge from previously trained models to perform well on smaller datasets."
+      },
+      {
+        "text": "Deep learning is a type of ML that uses neural networks with many layers, allowing it to learn complex patterns in large datasets.",
+        "correct": true,
+        "explanation": "This statement is correct. Deep learning is indeed a subfield of ML that utilizes deep neural networks to analyze various forms of data, making it particularly powerful for tasks such as image and speech recognition."
+      },
+      {
+        "text": "AI systems can operate without human intervention once they are deployed, as they continuously learn and adapt to new data.",
+        "correct": false,
+        "explanation": "This statement is misleading. While some AI systems can adapt over time, they often require ongoing supervision and adjustments from humans to ensure they are learning correctly and not deviating from expected behavior."
+      },
+      {
+        "text": "ML can improve its accuracy over time as it is exposed to more data and feedback from its predictions.",
+        "correct": true,
+        "explanation": "This statement is correct. One of the fundamental principles of ML is that models can improve their performance as they receive more training data and feedback, allowing them to better capture underlying patterns."
+      }
+    ],
+    "id": "1726441407406"
+  },
+  {
+    "text": "Which of the following practices are essential for ensuring the security and compliance of AI solutions on AWS? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Security, Compliance, and Governance for AI Solutions",
+    "options": [
+      {
+        "text": "Implementing encryption for data at rest and in transit",
+        "correct": true,
+        "explanation": "Encryption is crucial for protecting sensitive data from unauthorized access, both when it is stored (at rest) and while being transmitted (in transit). This is a fundamental practice in securing AI solutions."
+      },
+      {
+        "text": "Creating an IAM policy that grants full access to all users",
+        "correct": false,
+        "explanation": "Granting full access to all users violates the principle of least privilege, which is a key concept in security. Each user should have only the permissions necessary to perform their tasks."
+      },
+      {
+        "text": "Regularly auditing and monitoring AI models for compliance with data protection regulations",
+        "correct": true,
+        "explanation": "Regular audits and monitoring are essential to ensure that AI models comply with relevant data protection regulations, such as GDPR or CCPA, and to identify any potential risks or breaches."
+      },
+      {
+        "text": "Using public datasets without assessing their compliance with licensing agreements",
+        "correct": false,
+        "explanation": "Using public datasets without verifying compliance with their licensing agreements can lead to legal issues. It is important to assess the terms of use for any data used in AI solutions."
+      },
+      {
+        "text": "Implementing multi-factor authentication (MFA) for accessing AI management tools",
+        "correct": true,
+        "explanation": "Implementing MFA adds an extra layer of security for accessing AI management tools, making it more difficult for unauthorized users to gain access, thus enhancing overall security."
+      }
+    ],
+    "id": "1726441426834"
+  },
+  {
+    "text": "Which of the following practices are essential for ensuring data privacy and compliance when deploying AI solutions on AWS? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Security, Compliance, and Governance for AI Solutions",
+    "options": [
+      {
+        "text": "Implement data encryption both at rest and in transit.",
+        "correct": true,
+        "explanation": "Encrypting data at rest and in transit is crucial for protecting sensitive information from unauthorized access and ensuring compliance with data protection regulations."
+      },
+      {
+        "text": "Use AWS IAM roles to manage access to AI services.",
+        "correct": true,
+        "explanation": "AWS Identity and Access Management (IAM) allows you to define permissions for individuals and services, which is essential for maintaining security and compliance in AI deployments."
+      },
+      {
+        "text": "Store all data in unencrypted formats to simplify access.",
+        "correct": false,
+        "explanation": "Storing data in unencrypted formats poses significant security risks and is contrary to best practices for data privacy and compliance."
+      },
+      {
+        "text": "Regularly review and audit access logs to detect unauthorized access.",
+        "correct": true,
+        "explanation": "Regular audits of access logs help identify potential security breaches and are an important part of maintaining compliance with governance policies."
+      },
+      {
+        "text": "Rely solely on AWS services for compliance without additional measures.",
+        "correct": false,
+        "explanation": "While AWS provides tools and services to aid compliance, organizations must take additional measures tailored to their specific regulatory requirements to ensure full compliance."
+      }
+    ],
+    "id": "1726441444141"
   }
 ];
 
