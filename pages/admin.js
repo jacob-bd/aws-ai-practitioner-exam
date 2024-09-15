@@ -21,6 +21,18 @@ export default function AdminPage() {
   const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
   const [isAddingNewQuestion, setIsAddingNewQuestion] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [addConfirmation, setAddConfirmation] = useState('');
+  const [newQuestion, setNewQuestion] = useState({
+    text: '',
+    type: 'single',
+    domain: '',
+    options: [
+      { text: '', correct: false, explanation: '' },
+      { text: '', correct: false, explanation: '' },
+      { text: '', correct: false, explanation: '' },
+      { text: '', correct: false, explanation: '' },
+    ],
+  });
 
   useEffect(() => {
     checkAuth();
@@ -64,42 +76,42 @@ export default function AdminPage() {
     }
   };
 
-  const updateQuestionPool = async (updatedQuestions) => {
-    try {
-      const updateResponse = await fetch('/api/updateQuestionPool', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedQuestions),
-      });
-      if (!updateResponse.ok) {
-        console.error('Failed to update question pool:', await updateResponse.text());
-      }
-    } catch (error) {
-      console.error('Error updating question pool:', error);
-    }
-  };
-
-  const handleAddQuestion = async (newQuestion) => {
+  const handleAddQuestion = async (questionToAdd) => {
     try {
       const response = await fetch('/api/questions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newQuestion),
+        body: JSON.stringify(questionToAdd),
       });
       
       if (response.ok) {
         const addedQuestion = await response.json();
         setQuestions([...questions, addedQuestion]);
-        setMessage('Question added successfully!');
-        setEditingQuestion(null);
-        setIsAddingNewQuestion(true);
-        fetchQuestions(); // Refresh the questions list
+        setAddConfirmation('Question added successfully!');
+        
+        // Clear all fields
+        setNewQuestion({
+          text: '',
+          type: 'single',
+          domain: '',
+          options: [
+            { text: '', correct: false, explanation: '' },
+            { text: '', correct: false, explanation: '' },
+            { text: '', correct: false, explanation: '' },
+            { text: '', correct: false, explanation: '' },
+          ],
+        });
+
+        // Clear the confirmation message after 3 seconds
+        setTimeout(() => {
+          setAddConfirmation('');
+        }, 3000);
       } else {
-        setMessage('Failed to add question. Please try again.');
+        setAddConfirmation('Failed to add question. Please try again.');
       }
     } catch (error) {
       console.error('Error adding question:', error);
-      setMessage('An error occurred while adding the question.');
+      setAddConfirmation('An error occurred while adding the question.');
     }
   };
 
@@ -120,7 +132,6 @@ export default function AdminPage() {
       console.log('Updated question:', updatedQuestion);
       const updatedQuestions = questions.map(q => q.id === updatedQuestion.id ? updatedQuestion : q);
       setQuestions(updatedQuestions);
-      await updateQuestionPool(updatedQuestions);
       setEditingQuestion(null);
       setMessage('Question updated successfully!');
     } catch (error) {
@@ -130,24 +141,25 @@ export default function AdminPage() {
   };
 
   const handleDeleteQuestion = async (questionId) => {
+    console.log(`Attempting to delete question with ID: ${questionId}`);
     try {
       const response = await fetch(`/api/questions/${questionId}`, {
         method: 'DELETE',
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      console.log(`Delete request response status: ${response.status}`);
+      const responseData = await response.json();
+      console.log('Delete request response data:', responseData);
+
+      if (response.ok) {
+        setQuestions(questions.filter(q => q.id !== questionId));
+        setMessage('Question deleted successfully!');
+      } else {
+        throw new Error(responseData.message || 'Failed to delete question');
       }
-
-      const result = await response.json();
-      console.log(result.message); // Log the success message
-
-      // Remove the deleted question from the state
-      setQuestions(questions.filter(q => q.id !== questionId));
-      setMessage('Question deleted successfully!');
     } catch (error) {
       console.error('Failed to delete question:', error);
-      setMessage('Failed to delete question. Please try again.');
+      setMessage(`Failed to delete question: ${error.message}`);
     }
   };
 
@@ -269,6 +281,9 @@ export default function AdminPage() {
           }}
           isAddingNew={isAddingNewQuestion}
         />
+        {addConfirmation && (
+          <p className="text-green-600 mt-2">{addConfirmation}</p>
+        )}
       </div>
       <div>
         <h2 className="text-2xl font-semibold mb-4 text-center">Question List</h2>
@@ -327,7 +342,7 @@ export default function AdminPage() {
                     <p className="font-medium text-black">Options:</p>
                     <ul className="list-disc pl-5">
                       {question.options.map((option, index) => (
-                        <li key={index} className={option.correct ? 'text-green-600' : 'text-black'}>
+                        <li key={`${question.id}-option-${index}`} className={option.correct ? 'text-green-600' : 'text-black'}>
                           <span className={option.correct ? 'font-bold' : ''}>{option.text}</span>
                           {option.correct && ' (Correct)'}
                           <p className={`ml-2 ${option.correct ? 'text-green-600 font-bold' : 'text-black'}`}>

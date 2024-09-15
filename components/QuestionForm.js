@@ -39,10 +39,8 @@ const QuestionForm = ({ onSubmit, initialData, onCancel, isAddingNew }) => {
   const handleCorrectChange = (index) => {
     const newOptions = question.options.map((option, i) => {
       if (question.type === 'single') {
-        // For single choice, only one answer can be correct
         return { ...option, correct: i === index };
       } else {
-        // For multiple choice, toggle the correct state of the clicked option
         return i === index ? { ...option, correct: !option.correct } : option;
       }
     });
@@ -94,7 +92,7 @@ const QuestionForm = ({ onSubmit, initialData, onCancel, isAddingNew }) => {
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">Answers</label>
         {question.options.map((option, index) => (
-          <div key={index} className="mb-4 p-4 bg-gray-800 rounded-md">
+          <div key={`option-${index}`} className="mb-4 p-4 bg-gray-800 rounded-md">
             <label htmlFor={`answer-${index}`} className="block text-sm font-medium text-gray-300 mb-1">Answer {index + 1}</label>
             <input
               id={`answer-${index}`}

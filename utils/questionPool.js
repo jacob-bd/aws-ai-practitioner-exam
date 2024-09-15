@@ -1,5 +1,6 @@
 let questionPool = [
   {
+    "id": "1",
     "text": "What is 'transparency' in the context of responsible AI?",
     "type": "single",
     "domain": "Guidelines for Responsible AI",
@@ -27,6 +28,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "2",
     "text": "What is the primary purpose of fine-tuning in generative AI models?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -54,6 +56,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "3",
     "text": "What is the purpose of 'explainable AI' in responsible AI development?",
     "type": "single",
     "domain": "Guidelines for Responsible AI",
@@ -76,11 +79,12 @@ let questionPool = [
       {
         "text": "To make AI systems run faster",
         "correct": false,
-        "explanation": "Explainability is about understanding, not improving processing speed."
+        "explanation": "While explainability is about understanding, not improving processing speed."
       }
     ]
   },
   {
+    "id": "4",
     "text": "Which of the following is NOT a type of machine learning?",
     "type": "single",
     "domain": "Fundamentals of AI and ML",
@@ -108,6 +112,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "5",
     "text": "What is the primary function of the Top-K sampling method in text generation?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -135,6 +140,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "6",
     "text": "What is a key advantage of using foundation models in generative AI?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -162,6 +168,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "7",
     "text": "What is the primary purpose of prompt engineering in generative AI?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -189,6 +196,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "8",
     "text": "What is the primary purpose of fine-tuning a foundation model?",
     "type": "single",
     "domain": "Applications of Foundation Models",
@@ -216,6 +224,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "9",
     "text": "What is the primary purpose of the temperature parameter in text generation applications?",
     "type": "single",
     "domain": "Applications of Foundation Models",
@@ -243,6 +252,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "10",
     "text": "What is the primary function of the encoder in a seq2seq (sequence-to-sequence) model?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -270,6 +280,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "11",
     "text": "What is the role of AWS Key Management Service (KMS) in AI data security?",
     "type": "single",
     "domain": "Security, Compliance, and Governance for AI Solutions",
@@ -297,6 +308,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "12",
     "text": "What is the primary goal of 'fairness' in responsible AI?",
     "type": "single",
     "domain": "Guidelines for Responsible AI",
@@ -324,6 +336,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "13",
     "text": "What is the purpose of encryption in AI data security?",
     "type": "single",
     "domain": "Security, Compliance, and Governance for AI Solutions",
@@ -351,6 +364,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "14",
     "text": "What is the primary purpose of feature engineering in machine learning?",
     "type": "single",
     "domain": "Fundamentals of AI and ML",
@@ -378,6 +392,7 @@ let questionPool = [
     ]
   },
   {
+    "id": "15",
     "text": "What is a key characteristic of generative AI models?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -807,6 +822,60 @@ let questionPool = [
         "correct": false,
         "explanation": "Reducing memory usage is not the primary purpose of the softmax function."
       }
+    ],
+  },
+  {
+    "text": "What is the primary purpose of the softmax function in generative language models?",
+    "type": "single",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "To compress the input data",
+        "correct": false,
+        "explanation": "The softmax function is not used for data compression."
+      },
+      {
+        "text": "To convert model outputs into a probability distribution over possible next tokens",
+        "correct": true,
+        "explanation": "The softmax function takes the raw output scores of the model and converts them into a probability distribution over the possible next tokens, allowing for probabilistic token selection."
+      },
+      {
+        "text": "To increase the model's processing speed",
+        "correct": false,
+        "explanation": "The softmax function is not primarily used to increase processing speed."
+      },
+      {
+        "text": "To reduce the model's memory usage",
+        "correct": false,
+        "explanation": "Reducing memory usage is not the primary purpose of the softmax function."
+      }
+    ],
+  },
+  {
+    "text": "What is the primary purpose of the softmax function in generative language models?",
+    "type": "single",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "To compress the input data",
+        "correct": false,
+        "explanation": "The softmax function is not used for data compression."
+      },
+      {
+        "text": "To convert model outputs into a probability distribution over possible next tokens",
+        "correct": true,
+        "explanation": "The softmax function takes the raw output scores of the model and converts them into a probability distribution over the possible next tokens, allowing for probabilistic token selection."
+      },
+      {
+        "text": "To increase the model's processing speed",
+        "correct": false,
+        "explanation": "The softmax function is not primarily used to increase processing speed."
+      },
+      {
+        "text": "To reduce the model's memory usage",
+        "correct": false,
+        "explanation": "Reducing memory usage is not the primary purpose of the softmax function."
+      }
     ]
   },
   {
@@ -1188,87 +1257,6 @@ let questionPool = [
     ]
   },
   {
-    "text": "What is a key advantage of using transformer models in generative AI?",
-    "type": "single",
-    "domain": "Fundamentals of Generative AI",
-    "options": [
-      {
-        "text": "They require very little training data",
-        "correct": false,
-        "explanation": "Transformer models typically require large amounts of training data to be effective."
-      },
-      {
-        "text": "They can only be used for text generation tasks",
-        "correct": false,
-        "explanation": "Transformer models are versatile and can be used for various tasks beyond text generation."
-      },
-      {
-        "text": "They can process input sequences in parallel, improving efficiency",
-        "correct": true,
-        "explanation": "Transformer models can process entire input sequences in parallel, unlike recurrent models, which leads to improved training and inference efficiency, especially for longer sequences."
-      },
-      {
-        "text": "They eliminate the need for attention mechanisms",
-        "correct": false,
-        "explanation": "Transformer models actually rely heavily on attention mechanisms; they don't eliminate them."
-      }
-    ]
-  },
-  {
-    "text": "What is the purpose of 'AI impact assessments'?",
-    "type": "single",
-    "domain": "Guidelines for Responsible AI",
-    "options": [
-      {
-        "text": "To increase AI system speed",
-        "correct": false,
-        "explanation": "Impact assessments are not about system speed, but about evaluating effects."
-      },
-      {
-        "text": "To evaluate potential societal and ethical impacts of AI systems",
-        "correct": true,
-        "explanation": "AI impact assessments are conducted to evaluate and anticipate the potential societal, ethical, and environmental impacts of AI systems before they are deployed, helping to identify and mitigate risks."
-      },
-      {
-        "text": "To make AI systems more complex",
-        "correct": false,
-        "explanation": "The goal is not to increase complexity, but to understand impacts."
-      },
-      {
-        "text": "To replace human decision-making",
-        "correct": false,
-        "explanation": "Impact assessments inform decision-making; they don't replace human involvement."
-      }
-    ]
-  },
-  {
-    "text": "What is the role of AWS Identity and Access Management (IAM) in securing AI solutions?",
-    "type": "single",
-    "domain": "Security, Compliance, and Governance for AI Solutions",
-    "options": [
-      {
-        "text": "To train AI models",
-        "correct": false,
-        "explanation": "IAM is not used for model training; it's a security service."
-      },
-      {
-        "text": "To manage and secure access to AWS resources",
-        "correct": true,
-        "explanation": "AWS IAM is used to securely control access to AWS services and resources, allowing you to manage who can access which resources and what actions they can perform."
-      },
-      {
-        "text": "To store AI training data",
-        "correct": false,
-        "explanation": "IAM is not a data storage service; it manages access to resources."
-      },
-      {
-        "text": "To optimize AI model performance",
-        "correct": false,
-        "explanation": "IAM is not involved in model performance optimization; it's for access management."
-      }
-    ]
-  },
-  {
     "text": "What is a key characteristic of zero-shot learning in generative AI?",
     "type": "single",
     "domain": "Fundamentals of Generative AI",
@@ -1301,9 +1289,9 @@ let questionPool = [
     "domain": "Guidelines for Responsible AI",
     "options": [
       {
-        "text": "To maximize company profits",
+        "text": "To increase AI system speed",
         "correct": false,
-        "explanation": "Ethics boards are not primarily concerned with profit maximization."
+        "explanation": "Ethics boards are not primarily concerned with system speed, but about ethical implications."
       },
       {
         "text": "To provide guidance on ethical implications of AI development and use",
@@ -2619,6 +2607,72 @@ let questionPool = [
       }
     ],
     "id": "1726433869078"
+  },
+  {
+    "text": "Which of the following practices are essential for ensuring security and compliance in AI solutions deployed on AWS? (Select two)",
+    "type": "multiple",
+    "domain": "Security, Compliance, and Governance for AI Solutions",
+    "options": [
+      {
+        "text": "Implementing IAM roles with least privilege access",
+        "correct": true,
+        "explanation": "Using IAM roles with least privilege access ensures that AI applications have only the permissions they need to perform their functions, reducing the risk of unauthorized access and data breaches."
+      },
+      {
+        "text": "Encrypting data at rest and in transit",
+        "correct": true,
+        "explanation": "Encrypting data both at rest and in transit protects sensitive information from unauthorized access and ensures compliance with data protection regulations."
+      },
+      {
+        "text": "Using public datasets without verification",
+        "correct": false,
+        "explanation": "Using public datasets without verification can lead to compliance issues, as the data may contain biases or inaccuracies that could affect the AI model's performance and ethical considerations."
+      },
+      {
+        "text": "Disabling logging for AI services to minimize costs",
+        "correct": false,
+        "explanation": "Disabling logging eliminates a key mechanism for monitoring and auditing access to AI services, which can compromise security and make it difficult to comply with governance requirements."
+      },
+      {
+        "text": "Conducting regular security assessments and audits",
+        "correct": false,
+        "explanation": "While conducting regular security assessments and audits is a best practice, it is not one of the two essential practices highlighted in this question focused on immediate security measures."
+      }
+    ],
+    "id": "1726435512460"
+  },  
+  {
+    "text": "Which of the following statements accurately describes key aspects of Generative AI? (select two)",
+    "type": "multiple",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "Generative AI models can only produce text-based outputs.",
+        "correct": false,
+        "explanation": "This statement is incorrect because Generative AI encompasses a variety of modalities, including text, images, audio, and video outputs."
+      },
+      {
+        "text": "Generative AI relies on training data to learn patterns and create new content.",
+        "correct": true,
+        "explanation": "This statement is correct as Generative AI models, such as GANs and VAEs, learn from existing datasets to generate new and similar content."
+      },
+      {
+        "text": "Generative AI can be used for tasks such as image synthesis and music composition.",
+        "correct": true,
+        "explanation": "This statement is correct because Generative AI is utilized in various creative tasks, including generating realistic images and composing music."
+      },
+      {
+        "text": "All Generative AI models require labeled datasets for training.",
+        "correct": false,
+        "explanation": "This statement is incorrect because some Generative AI models, like GANs, can work with unlabeled datasets, focusing on learning the underlying distribution of the data."
+      },
+      {
+        "text": "Generative AI has no applications in natural language processing.",
+        "correct": false,
+        "explanation": "This statement is incorrect as Generative AI plays a significant role in natural language processing, enabling applications like text generation and conversational agents."
+      }
+    ],
+    "id": "1726435873628"
   }
 ];
 
@@ -2629,23 +2683,19 @@ export function getQuestions() {
 export function addQuestion(newQuestion) {
   newQuestion.id = Date.now().toString();
   questionPool.push(newQuestion);
-  updateQuestionPoolFile();
 }
 
 export function updateQuestion(updatedQuestion) {
   const index = questionPool.findIndex(q => q.id === updatedQuestion.id);
   if (index !== -1) {
     questionPool[index] = updatedQuestion;
-    updateQuestionPoolFile();
   }
 }
 
 export function deleteQuestion(questionId) {
-  questionPool = questionPool.filter(q => q.id !== questionId);
-  updateQuestionPoolFile();
+  questionPool = questionPool.filter(q => String(q.id) !== String(questionId));
 }
 
 export function updateQuestionPool(newQuestionPool) {
   questionPool = newQuestionPool;
-  updateQuestionPoolFile();
 }

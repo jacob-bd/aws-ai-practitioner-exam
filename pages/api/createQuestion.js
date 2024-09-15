@@ -1,9 +1,11 @@
-import OpenAI from 'openai';
+import { Configuration, OpenAIApi } from 'openai';
 import { addQuestion, getQuestions } from '../../utils/questionPool';
+import { updateQuestionPoolFile } from '../../utils/questionPoolFile';
 
-const openai = new OpenAI({
+const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -72,9 +74,17 @@ Please provide the response as a JSON object in the following format:
       return res.status(500).json({ error: 'Invalid question format returned by AI' });
     }
 
-    addQuestion(generatedQuestion);
-
-    res.status(200).json({ message: 'Question added successfully', question: generatedQuestion });
+    try {
+      addQuestion(generatedQuestion);
+      updateQuestionPoolFile(); // Add this line
+      res.status(200).json({ message: 'Question added successfully', question: generatedQuestion });
+    } catch (error) {
+      if (error.message.includes('Duplicate question')) {
+        res.status(409).json({ error: error.message });
+      } else {
+        throw error; // Re-throw if it's not a duplicate error
+      }
+    }
   } catch (error) {
     console.error('Error generating question', error);
     res.status(500).json({ error: 'Error generating question: ' + error.message });
