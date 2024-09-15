@@ -459,7 +459,7 @@ let questionPool = [
     ]
   },
   {
-    "text": "What is the primary purpose of using Retrieval Augmented Generation (RAG) in chatbot applications?",
+    "text": "What is the primary purpose of Retrieval Augmented Generation (RAG) in chatbot applications?",
     "type": "single",
     "domain": "Applications of Foundation Models",
     "options": [
@@ -2586,6 +2586,39 @@ let questionPool = [
         "explanation": "This statement is incorrect. Generative AI can be applied across various domains, including visual content, text (like chatbots), and audio (like music generation), demonstrating its versatility."
       }
     ]
+  },
+  {
+    "text": "Which of the following are common applications of foundation models in AI? Select 3.",
+    "type": "multiple",
+    "domain": "Applications of Foundation Models",
+    "options": [
+      {
+        "text": "Natural language understanding and generation",
+        "correct": true,
+        "explanation": "Foundation models, such as GPT-3, are extensively used for natural language understanding and generation tasks, allowing for advanced capabilities in chatbots, content generation, and summarization."
+      },
+      {
+        "text": "Image recognition and classification",
+        "correct": true,
+        "explanation": "Foundation models like Vision Transformers and CLIP are utilized for image recognition and classification, enabling applications in computer vision and image processing."
+      },
+      {
+        "text": "Real-time stock trading",
+        "correct": false,
+        "explanation": "While AI can assist in stock trading, it typically requires specialized models and algorithms tailored to financial data rather than general foundation models."
+      },
+      {
+        "text": "Automated code generation and debugging",
+        "correct": true,
+        "explanation": "Foundation models can be applied in software development for automated code generation and debugging, as seen in tools like GitHub Copilot, which leverage AI to assist developers."
+      },
+      {
+        "text": "Physical robotics control systems",
+        "correct": false,
+        "explanation": "Foundation models are not typically used for physical robotics control systems, which require real-time processing and specialized algorithms for decision making and control."
+      }
+    ],
+    "id": "1726433869078"
   }
 ];
 
@@ -2593,19 +2626,26 @@ export function getQuestions() {
   return questionPool;
 }
 
-export function addQuestions(newQuestion) {
-  // Generate a unique ID for the new question
+export function addQuestion(newQuestion) {
   newQuestion.id = Date.now().toString();
   questionPool.push(newQuestion);
+  updateQuestionPoolFile();
 }
 
 export function updateQuestion(updatedQuestion) {
   const index = questionPool.findIndex(q => q.id === updatedQuestion.id);
   if (index !== -1) {
     questionPool[index] = updatedQuestion;
+    updateQuestionPoolFile();
   }
 }
 
 export function deleteQuestion(questionId) {
   questionPool = questionPool.filter(q => q.id !== questionId);
+  updateQuestionPoolFile();
+}
+
+export function updateQuestionPool(newQuestionPool) {
+  questionPool = newQuestionPool;
+  updateQuestionPoolFile();
 }

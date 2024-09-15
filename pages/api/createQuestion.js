@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { addQuestions, getQuestions } from '../../utils/questionPool';
+import { addQuestion, getQuestions } from '../../utils/questionPool';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -72,11 +72,9 @@ Please provide the response as a JSON object in the following format:
       return res.status(500).json({ error: 'Invalid question format returned by AI' });
     }
 
-    addQuestions(generatedQuestion);
+    addQuestion(generatedQuestion);
 
-    const updatedPool = getQuestions();
-
-    res.status(200).json({ message: 'Question added successfully', questions: updatedPool });
+    res.status(200).json({ message: 'Question added successfully', question: generatedQuestion });
   } catch (error) {
     console.error('Error generating question', error);
     res.status(500).json({ error: 'Error generating question: ' + error.message });

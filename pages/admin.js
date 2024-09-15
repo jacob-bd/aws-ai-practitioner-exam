@@ -93,6 +93,7 @@ export default function AdminPage() {
         setMessage('Question added successfully!');
         setEditingQuestion(null);
         setIsAddingNewQuestion(true);
+        fetchQuestions(); // Refresh the questions list
       } else {
         setMessage('Failed to add question. Please try again.');
       }
