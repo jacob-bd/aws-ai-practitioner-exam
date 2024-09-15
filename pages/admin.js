@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import QuestionForm from '../components/QuestionForm';
 
@@ -16,10 +16,10 @@ export default function AdminPage() {
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [message, setMessage] = useState(null);
   const router = useRouter();
-  const editSectionRef = useRef(null);
   const [aiQuestionType, setAiQuestionType] = useState('single');
   const [aiQuestionDomain, setAiQuestionDomain] = useState(DOMAINS[0]);
   const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
+  const [isAddingNewQuestion, setIsAddingNewQuestion] = useState(true);
 
   useEffect(() => {
     checkAuth();
@@ -70,24 +70,25 @@ export default function AdminPage() {
   };
 
   const handleAddQuestion = async (newQuestion) => {
-    console.log('Submitting new question:', newQuestion);
-    const response = await fetch('/api/questions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newQuestion),
-    });
-    console.log('Response status:', response.status);
-    if (response.ok) {
-      const addedQuestion = await response.json();
-      const updatedQuestions = [...questions, addedQuestion];
-      setQuestions(updatedQuestions);
-      await updateQuestionPool(updatedQuestions);
-      setMessage('Question added successfully!');
-      setTimeout(() => setMessage(null), 3000); // Clear message after 3 seconds
-    } else {
-      console.error('Failed to add question:', await response.text());
-      setMessage('Failed to add question. Please try again.');
-      setTimeout(() => setMessage(null), 3000);
+    try {
+      const response = await fetch('/api/questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newQuestion),
+      });
+      
+      if (response.ok) {
+        const addedQuestion = await response.json();
+        setQuestions([...questions, addedQuestion]);
+        setMessage('Question added successfully!');
+        setEditingQuestion(null);
+        setIsAddingNewQuestion(true);
+      } else {
+        setMessage('Failed to add question. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error adding question:', error);
+      setMessage('An error occurred while adding the question.');
     }
   };
 
@@ -111,11 +112,9 @@ export default function AdminPage() {
       await updateQuestionPool(updatedQuestions);
       setEditingQuestion(null);
       setMessage('Question updated successfully!');
-      setTimeout(() => setMessage(null), 3000);
     } catch (error) {
       console.error('Failed to edit question:', error);
       setMessage('Failed to update question. Please try again.');
-      setTimeout(() => setMessage(null), 3000);
     }
   };
 
@@ -135,19 +134,15 @@ export default function AdminPage() {
       // Remove the deleted question from the state
       setQuestions(questions.filter(q => q.id !== questionId));
       setMessage('Question deleted successfully!');
-      setTimeout(() => setMessage(null), 3000);
     } catch (error) {
       console.error('Failed to delete question:', error);
       setMessage('Failed to delete question. Please try again.');
-      setTimeout(() => setMessage(null), 3000);
     }
   };
 
   const handleEditClick = (question) => {
     setEditingQuestion(question);
-    if (editSectionRef.current) {
-      editSectionRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    setIsAddingNewQuestion(false);
   };
 
   const handleGenerateQuestion = async () => {
@@ -161,11 +156,9 @@ export default function AdminPage() {
 
       if (response.ok) {
         const { question } = await response.json();
-        await handleAddQuestion(question);
-        setMessage('AI-generated question added successfully!');
-        // Optionally, you can reset the form fields here
-        setAiQuestionType('single');
-        setAiQuestionDomain(DOMAINS[0]);
+        setEditingQuestion(question);
+        setIsAddingNewQuestion(true);
+        setMessage('AI-generated question loaded into the form. Please review and edit if necessary.');
       } else {
         setMessage('Failed to generate question. Please try again.');
       }
@@ -176,15 +169,6 @@ export default function AdminPage() {
       setIsGeneratingQuestion(false);
     }
   };
-
-  useEffect(() => {
-    if (message) {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-  }, [message]);
 
   if (!isAuthenticated) {
     return <div>Checking authentication...</div>;
@@ -210,8 +194,8 @@ export default function AdminPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       {message && (
-        <div className={`mt-4 p-2 rounded ${message.includes('successfully') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-          {message}
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+          <p>{message}</p>
         </div>
       )}
       <div className="mb-8">
@@ -255,14 +239,18 @@ export default function AdminPage() {
           {isGeneratingQuestion ? 'Generating...' : 'Generate Question'}
         </button>
       </div>
-      <div className="mb-8" ref={editSectionRef}>
+      <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">
           {editingQuestion ? 'Edit Question' : 'Add New Question'}
         </h2>
         <QuestionForm
-          onSubmit={editingQuestion ? handleEditQuestion : handleAddQuestion}
+          onSubmit={isAddingNewQuestion ? handleAddQuestion : handleEditQuestion}
           initialData={editingQuestion}
-          onCancel={() => setEditingQuestion(null)}
+          onCancel={() => {
+            setEditingQuestion(null);
+            setIsAddingNewQuestion(true);
+          }}
+          isAddingNew={isAddingNewQuestion}
         />
       </div>
       <div>

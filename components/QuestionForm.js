@@ -8,12 +8,15 @@ const DOMAINS = [
   'Security, Compliance, and Governance for AI Solutions'
 ];
 
-export default function QuestionForm({ onSubmit, initialData, onCancel }) {
-  const [question, setQuestion] = useState(initialData || {
+const QuestionForm = ({ onSubmit, initialData, onCancel, isAddingNew }) => {
+  const [question, setQuestion] = useState({
     text: '',
     type: 'single',
-    domain: '',
-    options: [{ text: '', correct: false, explanation: '' }],
+    domain: DOMAINS[0],
+    options: [
+      { text: '', correct: false, explanation: '' },
+      { text: '', correct: false, explanation: '' },
+    ],
   });
 
   useEffect(() => {
@@ -25,15 +28,6 @@ export default function QuestionForm({ onSubmit, initialData, onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(question);
-    if (!initialData) {
-      // Clear the form if it's a new question
-      setQuestion({
-        text: '',
-        type: 'single',
-        domain: '',
-        options: [{ text: '', correct: false, explanation: '' }],
-      });
-    }
   };
 
   const handleOptionChange = (index, field, value) => {
@@ -42,113 +36,120 @@ export default function QuestionForm({ onSubmit, initialData, onCancel }) {
     setQuestion({ ...question, options: newOptions });
   };
 
-  const addOption = () => {
-    setQuestion({
-      ...question,
-      options: [...question.options, { text: '', correct: false, explanation: '' }],
+  const handleCorrectChange = (index) => {
+    const newOptions = question.options.map((option, i) => {
+      if (question.type === 'single') {
+        // For single choice, only one answer can be correct
+        return { ...option, correct: i === index };
+      } else {
+        // For multiple choice, toggle the correct state of the clicked option
+        return i === index ? { ...option, correct: !option.correct } : option;
+      }
     });
-  };
-
-  const removeOption = (index) => {
-    const newOptions = question.options.filter((_, i) => i !== index);
     setQuestion({ ...question, options: newOptions });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Move Type and Domain dropdowns here and make them inline */}
-      <div className="flex space-x-4">
-        <div className="w-1/2">
-          <label className="block mb-1">Type:</label>
-          <select
-            value={question.type}
-            onChange={(e) => setQuestion({ ...question, type: e.target.value })}
-            className="w-full p-2 border rounded"
-            required
-          >
-            <option value="single">Single Answer</option>
-            <option value="multiple">Multiple Answer</option>
-          </select>
-        </div>
-        <div className="w-1/2">
-          <label className="block mb-1">Domain:</label>
-          <select
-            value={question.domain}
-            onChange={(e) => setQuestion({ ...question, domain: e.target.value })}
-            className="w-full p-2 border rounded"
-            required
-          >
-            <option value="">Select a domain</option>
-            <option value="Fundamentals of AI and ML">Fundamentals of AI and ML</option>
-            <option value="Fundamentals of Generative AI">Fundamentals of Generative AI</option>
-            <option value="Applications of Foundation Models">Applications of Foundation Models</option>
-            <option value="Guidelines for Responsible AI">Guidelines for Responsible AI</option>
-            <option value="Security, Compliance, and Governance for AI Solutions">Security, Compliance, and Governance for AI Solutions</option>
-          </select>
-        </div>
-      </div>
-
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block mb-1">Question:</label>
+        <label htmlFor="questionText" className="block text-sm font-medium text-gray-300">Question Text</label>
         <textarea
+          id="questionText"
           value={question.text}
           onChange={(e) => setQuestion({ ...question, text: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           rows="3"
-          required
         ></textarea>
       </div>
 
+      <div className="flex space-x-4">
+        <div className="flex-1">
+          <label htmlFor="domain" className="block text-sm font-medium text-gray-300">Domain</label>
+          <select
+            id="domain"
+            value={question.domain}
+            onChange={(e) => setQuestion({ ...question, domain: e.target.value })}
+            className="mt-1 block w-full rounded-md bg-gray-800 border border-white text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-2 px-3"
+          >
+            {DOMAINS.map((domain) => (
+              <option key={domain} value={domain}>{domain}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex-1">
+          <label htmlFor="questionType" className="block text-sm font-medium text-gray-300">Question Type</label>
+          <select
+            id="questionType"
+            value={question.type}
+            onChange={(e) => setQuestion({ ...question, type: e.target.value })}
+            className="mt-1 block w-full rounded-md bg-gray-800 border border-white text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-2 px-3"
+          >
+            <option value="single">Single Choice</option>
+            <option value="multiple">Multiple Choice</option>
+          </select>
+        </div>
+      </div>
+
       <div>
-        <label className="block mb-1">Options:</label>
+        <label className="block text-sm font-medium text-gray-300 mb-2">Answers</label>
         {question.options.map((option, index) => (
-          <div key={index} className="mb-2 p-2 border rounded">
+          <div key={index} className="mb-4 p-4 bg-gray-800 rounded-md">
+            <label htmlFor={`answer-${index}`} className="block text-sm font-medium text-gray-300 mb-1">Answer {index + 1}</label>
             <input
+              id={`answer-${index}`}
               type="text"
               value={option.text}
               onChange={(e) => handleOptionChange(index, 'text', e.target.value)}
-              className="w-full p-2 border rounded mb-1"
-              placeholder="Option text"
-              required
+              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              placeholder={`Answer ${index + 1}`}
             />
-            <div className="flex items-center mb-1">
-              <input
-                type="checkbox"
-                checked={option.correct}
-                onChange={(e) => handleOptionChange(index, 'correct', e.target.checked)}
-                className="mr-2"
-              />
-              <label>Correct</label>
-            </div>
+            <label htmlFor={`explanation-${index}`} className="block text-sm font-medium text-gray-300 mb-1">Explanation</label>
             <textarea
+              id={`explanation-${index}`}
               value={option.explanation}
               onChange={(e) => handleOptionChange(index, 'explanation', e.target.value)}
-              className="w-full p-2 border rounded mb-1"
+              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              rows="2"
               placeholder="Explanation"
-              required
-            />
-            <button type="button" onClick={() => removeOption(index)} className="text-red-500">
-              Remove Option
-            </button>
+            ></textarea>
+            <label className="inline-flex items-center">
+              <input
+                type={question.type === 'single' ? 'radio' : 'checkbox'}
+                checked={option.correct}
+                onChange={() => handleCorrectChange(index)}
+                name={question.type === 'single' ? 'correct-answer' : `correct-answer-${index}`}
+                className={`form-${question.type === 'single' ? 'radio' : 'checkbox'} h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 bg-gray-700`}
+              />
+              <span className="ml-2 text-sm text-gray-300">Correct</span>
+            </label>
           </div>
         ))}
-        <button type="button" onClick={addOption} className="bg-green-500 text-white px-2 py-1 rounded">
-          Add Option
+      </div>
+
+      <div className="flex justify-center">
+        <button
+          type="button"
+          onClick={() => {
+            const newOptions = [...question.options, { text: '', correct: false, explanation: '' }];
+            setQuestion({ ...question, options: newOptions });
+          }}
+          className="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Add Answer
         </button>
       </div>
-      <div className="flex justify-end space-x-2">
-        <button type="button" onClick={onCancel} className="px-4 py-2 bg-gray-300 rounded">
+
+      <div className="flex justify-center space-x-3">
+        <button type="button" onClick={onCancel} className="px-4 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Cancel
         </button>
-        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
-          {initialData ? 'Update Question' : 'Add Question'}
+        <button type="submit" className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          {isAddingNew ? 'Add Question' : 'Update Question'}
         </button>
       </div>
-      <style jsx>{`
-        select, input[type="text"], textarea {
-          color: black;
-        }
-      `}</style>
     </form>
   );
-}
+};
+
+export default QuestionForm;
