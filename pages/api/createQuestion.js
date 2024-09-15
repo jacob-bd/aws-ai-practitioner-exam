@@ -21,7 +21,7 @@ You will be provided with two inputs:
 Follow these steps to create the exam question:
 1. Create a clear and concise question text related to the specified domain. The question should be challenging but appropriate for the AWS AI Practitioner level.
 2. Generate 4-5 answer options that are relevant to the question. Ensure that the options are distinct and plausible.
-3. For a single correct answer question, mark only one option as correct. For a multiple correct answers question, mark 2-3 options as correct.
+3. For a single correct answer question, mark only one option as correct. For a multiple correct answers question, mark 2-3 options as correct and ensure to tell the user in the question how many the need to select.
 4. For each answer option, provide a brief explanation of why it is correct or incorrect. The explanation should be informative and help the exam taker understand the concept better.
 
 Please provide the response as a JSON object in the following format:

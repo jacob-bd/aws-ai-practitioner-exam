@@ -101,7 +101,7 @@ const QuestionForm = ({ onSubmit, initialData, onCancel, isAddingNew }) => {
               type="text"
               value={option.text}
               onChange={(e) => handleOptionChange(index, 'text', e.target.value)}
-              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               placeholder={`Answer ${index + 1}`}
             />
             <label htmlFor={`explanation-${index}`} className="block text-sm font-medium text-gray-300 mb-1">Explanation</label>
@@ -109,7 +109,7 @@ const QuestionForm = ({ onSubmit, initialData, onCancel, isAddingNew }) => {
               id={`explanation-${index}`}
               value={option.explanation}
               onChange={(e) => handleOptionChange(index, 'explanation', e.target.value)}
-              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mb-2 block w-full rounded-md bg-gray-700 border-gray-600 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               rows="2"
               placeholder="Explanation"
             ></textarea>

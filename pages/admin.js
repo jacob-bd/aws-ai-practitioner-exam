@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [aiQuestionDomain, setAiQuestionDomain] = useState(DOMAINS[0]);
   const [isGeneratingQuestion, setIsGeneratingQuestion] = useState(false);
   const [isAddingNewQuestion, setIsAddingNewQuestion] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -30,6 +31,15 @@ export default function AdminPage() {
       fetchQuestions();
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.pageYOffset > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const checkAuth = async () => {
     // TODO: Implement actual authentication check
@@ -170,6 +180,10 @@ export default function AdminPage() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   if (!isAuthenticated) {
     return <div>Checking authentication...</div>;
   }
@@ -191,7 +205,7 @@ export default function AdminPage() {
   const totalQuestions = questions.length;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 relative">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       {message && (
         <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
@@ -199,7 +213,7 @@ export default function AdminPage() {
         </div>
       )}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Add New Exam Questions with AI</h2>
+        <h2 className="text-2xl font-semibold mb-4">Generate New Exam Questions with AI</h2>
         <div className="flex space-x-4 mb-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -231,17 +245,19 @@ export default function AdminPage() {
             </select>
           </div>
         </div>
-        <button
-          onClick={handleGenerateQuestion}
-          disabled={isGeneratingQuestion}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-green-300"
-        >
-          {isGeneratingQuestion ? 'Generating...' : 'Generate Question'}
-        </button>
+        <div className="flex justify-center mt-4"> {/* Added this wrapper div */}
+          <button
+            onClick={handleGenerateQuestion}
+            disabled={isGeneratingQuestion}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-green-300"
+          >
+            {isGeneratingQuestion ? 'Generating...' : 'Generate Question with AI 🤖'}
+          </button>
+        </div>
       </div>
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">
-          {editingQuestion ? 'Edit Question' : 'Add New Question'}
+          {editingQuestion ? 'Edit Question' : 'Add New Questions'}
         </h2>
         <QuestionForm
           onSubmit={isAddingNewQuestion ? handleAddQuestion : handleEditQuestion}
@@ -342,7 +358,29 @@ export default function AdminPage() {
       </div>
       <style jsx global>{`
         input[type="text"], textarea, select {
-          color: black;
+          color: inherit;
+        }
+      `}</style>
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300"
+          aria-label="Scroll to top"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
+      )}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        button {
+          animation: fadeIn 0.3s ease-in-out;
+          z-index: 1000;
         }
       `}</style>
     </div>

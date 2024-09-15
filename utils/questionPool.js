@@ -2593,11 +2593,19 @@ export function getQuestions() {
   return questionPool;
 }
 
-export function updateQuestionPool(newQuestions) {
-  questionPool = newQuestions;
+export function addQuestions(newQuestion) {
+  // Generate a unique ID for the new question
+  newQuestion.id = Date.now().toString();
+  questionPool.push(newQuestion);
 }
 
-export function getRandomQuestions(count) {
-  const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+export function updateQuestion(updatedQuestion) {
+  const index = questionPool.findIndex(q => q.id === updatedQuestion.id);
+  if (index !== -1) {
+    questionPool[index] = updatedQuestion;
+  }
+}
+
+export function deleteQuestion(questionId) {
+  questionPool = questionPool.filter(q => q.id !== questionId);
 }
