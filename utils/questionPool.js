@@ -2553,6 +2553,39 @@ let questionPool = [
         "explanation": "Diverse teams bring different perspectives, which can help identify potential biases and lead to more equitable AI solutions."
       }
     ]
+  },
+  {
+    "id": "1726422957675",
+    "text": "Which of the following statements accurately describe the principles of Generative AI? (Select all that apply)",
+    "type": "multiple",
+    "domain": "Fundamentals of Generative AI",
+    "options": [
+      {
+        "text": "Generative AI models can create new content based on patterns learned from existing data.",
+        "correct": true,
+        "explanation": "This statement is correct as generative AI models are designed to analyze existing data and generate new content, such as images, text, or music, by learning the underlying patterns."
+      },
+      {
+        "text": "Generative AI exclusively relies on labeled data for training.",
+        "correct": false,
+        "explanation": "This statement is incorrect. While labeled data can be used, generative AI can also learn from unlabeled data through techniques like unsupervised learning, making it versatile in its training approaches."
+      },
+      {
+        "text": "Generative AI can be used to enhance data privacy by creating synthetic datasets.",
+        "correct": true,
+        "explanation": "This statement is correct. Generative AI can produce synthetic data that mimics real data without exposing sensitive information, thus helping to enhance data privacy."
+      },
+      {
+        "text": "All generative models operate on the same architecture and cannot be diversified.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Generative models can vary significantly in architecture, including GANs (Generative Adversarial Networks), VAEs (Variational Autoencoders), and more, allowing for a diverse range of applications and capabilities."
+      },
+      {
+        "text": "Generative AI can only be applied to visual content and has no applications in text or audio.",
+        "correct": false,
+        "explanation": "This statement is incorrect. Generative AI can be applied across various domains, including visual content, text (like chatbots), and audio (like music generation), demonstrating its versatility."
+      }
+    ]
   }
 ];
 

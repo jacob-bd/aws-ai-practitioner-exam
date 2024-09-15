@@ -317,6 +317,7 @@ export default function AdminPage() {
                 <li key={question.id} className="bg-white p-6 rounded shadow">
                   <p className="text-lg font-bold text-black mb-2">{question.text}</p>
                   <p className="text-black mb-2"><span className="font-bold">Type:</span> {question.type === 'single' ? 'Single Choice' : 'Multiple Choice'}</p>
+                  <p className="text-black mb-2"><span className="font-bold">Domain:</span> {question.domain}</p>
                   <div className="mb-2">
                     <p className="font-medium text-black">Options:</p>
                     <ul className="list-disc pl-5">
