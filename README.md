@@ -1,3 +1,7 @@
+# AWS Certified AI Practitioner Exam Prep
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jacobbd)
+
 ## Key Components
 
 - **ExamSelector**: Allows users to choose the number of questions and feedback mode.
